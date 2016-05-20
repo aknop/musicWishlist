@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SampleDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="album">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="artist_id" Type="int" />
+    <Property Name="genre_id" Type="int" />
+    <Property Name="name" Type="text" />
+  </EntityType>
+  <EntityType Name="artist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="text" />
+  </EntityType>
+  <EntityType Name="genre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="text" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="songs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="text" />
+    <Property Name="artist_id" Type="int" />
+    <Property Name="album_id" Type="int" />
+    <Property Name="track_number" Type="int" />
+  </EntityType>
+  <Association Name="FK__album__artist_id__7B5B524B">
+    <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
+    <End Role="album" Type="Self.album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="artist">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="album">
+        <PropertyRef Name="artist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__album__genre_id__7C4F7684">
+    <End Role="genre" Type="Self.genre" Multiplicity="0..1" />
+    <End Role="album" Type="Self.album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="genre">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="album">
+        <PropertyRef Name="genre_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__songs__album_id__7F2BE32F">
+    <End Role="album" Type="Self.album" Multiplicity="0..1" />
+    <End Role="songs" Type="Self.songs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="album">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="songs">
+        <PropertyRef Name="album_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__songs__artist_id__7E37BEF6">
+    <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
+    <End Role="songs" Type="Self.songs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="artist">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="songs">
+        <PropertyRef Name="artist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SampleDBModelStoreContainer">
+    <EntitySet Name="album" EntityType="Self.album" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="artist" EntityType="Self.artist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="songs" EntityType="Self.songs" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [songs].[id] AS [id], 
+    [songs].[name] AS [name], 
+    [songs].[artist_id] AS [artist_id], 
+    [songs].[album_id] AS [album_id], 
+    [songs].[track_number] AS [track_number]
+    FROM [dbo].[songs] AS [songs]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__album__artist_id__7B5B524B" Association="Self.FK__album__artist_id__7B5B524B">
+      <End Role="artist" EntitySet="artist" />
+      <End Role="album" EntitySet="album" />
+    </AssociationSet>
+    <AssociationSet Name="FK__album__genre_id__7C4F7684" Association="Self.FK__album__genre_id__7C4F7684">
+      <End Role="genre" EntitySet="genre" />
+      <End Role="album" EntitySet="album" />
+    </AssociationSet>
+    <AssociationSet Name="FK__songs__album_id__7F2BE32F" Association="Self.FK__songs__album_id__7F2BE32F">
+      <End Role="album" EntitySet="album" />
+      <End Role="songs" EntitySet="songs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__songs__artist_id__7E37BEF6" Association="Self.FK__songs__artist_id__7E37BEF6">
+      <End Role="artist" EntitySet="artist" />
+      <End Role="songs" EntitySet="songs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
