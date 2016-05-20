@@ -206,6 +206,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MusicsController.cs" />
     <Compile Include="genre.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
@@ -215,6 +216,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Music.cs" />
     <Compile Include="Music.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -313,6 +315,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Musics\Create.cshtml" />
+    <Content Include="Views\Musics\Delete.cshtml" />
+    <Content Include="Views\Musics\Details.cshtml" />
+    <Content Include="Views\Musics\Edit.cshtml" />
+    <Content Include="Views\Musics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

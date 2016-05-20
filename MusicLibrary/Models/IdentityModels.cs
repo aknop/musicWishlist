@@ -29,5 +29,7 @@ namespace MusicLibrary.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<MusicLibrary.Models.Music> Musics { get; set; }
     }
 }

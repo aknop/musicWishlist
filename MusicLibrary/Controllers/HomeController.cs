@@ -13,6 +13,12 @@ namespace MusicLibrary.Controllers
             return View();
         }
 
+        public ActionResult MyMusic()
+        {
+            ViewBag.Message = "Your Library";
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
