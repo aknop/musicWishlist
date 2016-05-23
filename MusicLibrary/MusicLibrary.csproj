@@ -320,6 +320,9 @@
     <Content Include="Views\Musics\Details.cshtml" />
     <Content Include="Views\Musics\Edit.cshtml" />
     <Content Include="Views\Musics\Index.cshtml" />
+    <Content Include="Views\Home\Musics.cshtml">
+      <BrowseToURL>~/Musics</BrowseToURL>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
