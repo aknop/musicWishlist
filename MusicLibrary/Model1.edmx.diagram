@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c5fe474b9858455fb844201d5180b155" Name="Diagram1">
+      <Diagram DiagramId="1ead64f6712e4d858fce46ff34b32d82" Name="Diagram1">
         <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="SampleDBModel.artist" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SampleDBModel.genre" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SampleDBModel.song" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="SampleDBModel.FK__album__artist_id__7B5B524B" ManuallyRouted="false" />
-        <AssociationConnector Association="SampleDBModel.FK__album__genre_id__7C4F7684" ManuallyRouted="false" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__7F2BE32F" ManuallyRouted="false" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__artist_id__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="SampleDBModel.FK__album__artist_id__51300E55" ManuallyRouted="false" />
+        <AssociationConnector Association="SampleDBModel.FK__album__genre_id__5224328E" ManuallyRouted="false" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__55F4C372" ManuallyRouted="false" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__artist_id__55009F39" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

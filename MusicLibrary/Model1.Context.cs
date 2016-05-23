@@ -13,10 +13,10 @@ namespace MusicLibrary
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SampleDBEntities : DbContext
+    public partial class masterEntities : DbContext
     {
-        public SampleDBEntities()
-            : base("name=SampleDBEntities")
+        public masterEntities()
+            : base("name=masterEntities")
         {
         }
     
