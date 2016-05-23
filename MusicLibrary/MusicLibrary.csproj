@@ -323,6 +323,7 @@
     <Content Include="Views\Home\Musics.cshtml">
       <BrowseToURL>~/Musics</BrowseToURL>
     </Content>
+    <Content Include="Views\Musics\Artist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,10 +29,11 @@
         <th></th>
     </tr>
 
+    
 @foreach (var item in Model) {
-    <tr>
+   <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Artist)
+            @Html.ActionLink(item.Artist, "Artist", item.ID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Album)

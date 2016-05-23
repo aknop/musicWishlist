@@ -7,21 +7,21 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="artist_id" Type="int" />
     <Property Name="genre_id" Type="int" />
-    <Property Name="name" Type="text" />
+    <Property Name="name" Type="varchar" MaxLength="25" />
   </EntityType>
   <EntityType Name="artist">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="text" />
+    <Property Name="name" Type="varchar" MaxLength="25" />
   </EntityType>
   <EntityType Name="genre">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="text" />
+    <Property Name="name" Type="varchar" MaxLength="10" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -30,12 +30,12 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="text" />
+    <Property Name="name" Type="varchar" MaxLength="40" />
     <Property Name="artist_id" Type="int" />
     <Property Name="album_id" Type="int" />
     <Property Name="track_number" Type="int" />
   </EntityType>
-  <Association Name="FK__album__artist_id__7B5B524B">
+  <Association Name="FK__album__artist_id__1AD3FDA4">
     <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
     <End Role="album" Type="Self.album" Multiplicity="*" />
     <ReferentialConstraint>
@@ -47,7 +47,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__album__genre_id__7C4F7684">
+  <Association Name="FK__album__genre_id__1BC821DD">
     <End Role="genre" Type="Self.genre" Multiplicity="0..1" />
     <End Role="album" Type="Self.album" Multiplicity="*" />
     <ReferentialConstraint>
@@ -59,7 +59,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__album_id__7F2BE32F">
+  <Association Name="FK__songs__album_id__1EA48E88">
     <End Role="album" Type="Self.album" Multiplicity="0..1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -71,7 +71,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__artist_id__7E37BEF6">
+  <Association Name="FK__songs__artist_id__1DB06A4F">
     <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -96,19 +96,19 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
     [songs].[track_number] AS [track_number]
     FROM [dbo].[songs] AS [songs]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK__album__artist_id__7B5B524B" Association="Self.FK__album__artist_id__7B5B524B">
+    <AssociationSet Name="FK__album__artist_id__1AD3FDA4" Association="Self.FK__album__artist_id__1AD3FDA4">
       <End Role="artist" EntitySet="artist" />
       <End Role="album" EntitySet="album" />
     </AssociationSet>
-    <AssociationSet Name="FK__album__genre_id__7C4F7684" Association="Self.FK__album__genre_id__7C4F7684">
+    <AssociationSet Name="FK__album__genre_id__1BC821DD" Association="Self.FK__album__genre_id__1BC821DD">
       <End Role="genre" EntitySet="genre" />
       <End Role="album" EntitySet="album" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__album_id__7F2BE32F" Association="Self.FK__songs__album_id__7F2BE32F">
+    <AssociationSet Name="FK__songs__album_id__1EA48E88" Association="Self.FK__songs__album_id__1EA48E88">
       <End Role="album" EntitySet="album" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__artist_id__7E37BEF6" Association="Self.FK__songs__artist_id__7E37BEF6">
+    <AssociationSet Name="FK__songs__artist_id__1DB06A4F" Association="Self.FK__songs__artist_id__1DB06A4F">
       <End Role="artist" EntitySet="artist" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>

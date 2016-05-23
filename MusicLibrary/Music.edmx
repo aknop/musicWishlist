@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SampleDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SampleDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="album">
           <Key>
             <PropertyRef Name="id" />
@@ -12,21 +12,21 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="artist_id" Type="int" />
           <Property Name="genre_id" Type="int" />
-          <Property Name="name" Type="text" />
+          <Property Name="name" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="artist">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="text" />
+          <Property Name="name" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="genre">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="text" />
+          <Property Name="name" Type="varchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -35,12 +35,12 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="text" />
+          <Property Name="name" Type="varchar" MaxLength="40" />
           <Property Name="artist_id" Type="int" />
           <Property Name="album_id" Type="int" />
           <Property Name="track_number" Type="int" />
         </EntityType>
-        <Association Name="FK__album__artist_id__7B5B524B">
+        <Association Name="FK__album__artist_id__1AD3FDA4">
           <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
           <End Role="album" Type="Self.album" Multiplicity="*" />
           <ReferentialConstraint>
@@ -52,7 +52,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__album__genre_id__7C4F7684">
+        <Association Name="FK__album__genre_id__1BC821DD">
           <End Role="genre" Type="Self.genre" Multiplicity="0..1" />
           <End Role="album" Type="Self.album" Multiplicity="*" />
           <ReferentialConstraint>
@@ -64,7 +64,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__songs__album_id__7F2BE32F">
+        <Association Name="FK__songs__album_id__1EA48E88">
           <End Role="album" Type="Self.album" Multiplicity="0..1" />
           <End Role="songs" Type="Self.songs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -76,7 +76,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__songs__artist_id__7E37BEF6">
+        <Association Name="FK__songs__artist_id__1DB06A4F">
           <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
           <End Role="songs" Type="Self.songs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -101,25 +101,24 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
     [songs].[track_number] AS [track_number]
     FROM [dbo].[songs] AS [songs]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__album__artist_id__7B5B524B" Association="Self.FK__album__artist_id__7B5B524B">
+          <AssociationSet Name="FK__album__artist_id__1AD3FDA4" Association="Self.FK__album__artist_id__1AD3FDA4">
             <End Role="artist" EntitySet="artist" />
             <End Role="album" EntitySet="album" />
           </AssociationSet>
-          <AssociationSet Name="FK__album__genre_id__7C4F7684" Association="Self.FK__album__genre_id__7C4F7684">
+          <AssociationSet Name="FK__album__genre_id__1BC821DD" Association="Self.FK__album__genre_id__1BC821DD">
             <End Role="genre" EntitySet="genre" />
             <End Role="album" EntitySet="album" />
           </AssociationSet>
-          <AssociationSet Name="FK__songs__album_id__7F2BE32F" Association="Self.FK__songs__album_id__7F2BE32F">
+          <AssociationSet Name="FK__songs__album_id__1EA48E88" Association="Self.FK__songs__album_id__1EA48E88">
             <End Role="album" EntitySet="album" />
             <End Role="songs" EntitySet="songs" />
           </AssociationSet>
-          <AssociationSet Name="FK__songs__artist_id__7E37BEF6" Association="Self.FK__songs__artist_id__7E37BEF6">
+          <AssociationSet Name="FK__songs__artist_id__1DB06A4F" Association="Self.FK__songs__artist_id__1DB06A4F">
             <End Role="artist" EntitySet="artist" />
             <End Role="songs" EntitySet="songs" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SampleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -130,7 +129,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="artist_id" Type="Int32" />
           <Property Name="genre_id" Type="Int32" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="artist" Relationship="Self.FK__album__artist_id__7B5B524B" FromRole="album" ToRole="artist" />
           <NavigationProperty Name="genre" Relationship="Self.FK__album__genre_id__7C4F7684" FromRole="album" ToRole="genre" />
           <NavigationProperty Name="songs" Relationship="Self.FK__songs__album_id__7F2BE32F" FromRole="album" ToRole="songs" />
@@ -140,7 +139,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="albums" Relationship="Self.FK__album__artist_id__7B5B524B" FromRole="artist" ToRole="album" />
           <NavigationProperty Name="songs" Relationship="Self.FK__songs__artist_id__7E37BEF6" FromRole="artist" ToRole="songs" />
         </EntityType>
@@ -149,7 +148,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="albums" Relationship="Self.FK__album__genre_id__7C4F7684" FromRole="genre" ToRole="album" />
         </EntityType>
         <EntityType Name="song">
@@ -157,7 +156,7 @@ warning 6002: The table/view 'SampleDB.dbo.songs' does not have a primary key de
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="artist_id" Type="Int32" />
           <Property Name="album_id" Type="Int32" />
           <Property Name="track_number" Type="Int32" />

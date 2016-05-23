@@ -50,6 +50,9 @@ namespace MusicLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Search db for artist, and if artist already exists, assign it the same ID.
+                var artFinder = db.Musics.Find(music.Artist);
+
                 db.Musics.Add(music);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -113,6 +116,37 @@ namespace MusicLibrary.Controllers
             db.Musics.Remove(music);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Musics/Artist/5
+        public ActionResult Artist(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Music music = db.Musics.Find(id);
+            if (music == null)
+            {
+                return HttpNotFound();
+            }
+            return View(music);
+        }
+
+        // POST: Musics/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Artist([Bind(Include = "ID,Artist,Album,Song,TrackNumber,Genre")] Music music)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(music).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(music);
         }
 
         protected override void Dispose(bool disposing)
