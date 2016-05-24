@@ -204,6 +204,8 @@
       <DependentUpon>songs.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArtistController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\songsController.cs" />
@@ -327,6 +329,15 @@
     <Content Include="Views\songs\Edit.cshtml" />
     <Content Include="Views\songs\Index.cshtml" />
     <Content Include="Views\songs\ArtistIndex.cshtml" />
+    <Content Include="Views\Genre\Index.cshtml" />
+    <Content Include="Views\Genre\Create.cshtml" />
+    <Content Include="Views\Home\genres.cshtml" />
+    <Content Include="Views\Genre\Delete.cshtml" />
+    <Content Include="Views\Artist\Create.cshtml" />
+    <Content Include="Views\Artist\Delete.cshtml" />
+    <Content Include="Views\Artist\Edit.cshtml" />
+    <Content Include="Views\Artist\Index.cshtml" />
+    <Content Include="Views\Genre\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

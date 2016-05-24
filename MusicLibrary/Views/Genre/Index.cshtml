@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MusicLibrary.Models.SongsViewModel>
+
+@{
+    ViewBag.Title = "Genres";
+}
+
+<h2>Genres</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Genre Name
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenreName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit","Edit",new { id = item.SongID })
+                @Html.ActionLink("Delete", "Delete", new { id = item.SongID })
+            </td>
+        </tr>
+    }
+</table>
+
