@@ -7,18 +7,25 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MusicLibrary;
+using MusicLibrary.Models;
 
 namespace MusicLibrary.Controllers
 {
     public class songsController : Controller
     {
-        private masterEntities db = new masterEntities();
+        private trueEntities db = new trueEntities();
 
         // GET: songs
         public ActionResult Index()
         {
-            var songs = db.songs.Include(s => s.album).Include(s => s.artist);
-            return View(songs.ToList());
+            var songList = (from t in db.songs
+                            join art in db.artists on t.artist_id equals art.id
+                            join al in db.albums on t.album_id equals al.id
+                            join gen in db.genres on t.genre_id equals gen.id
+                            select new SongsViewModel{ SongID = t.id, TrackName=t.name, TrackNumber = t.track_number, ArtistName = art.artistName, AlbumName = al.name, GenreName= gen.genreName });
+
+        
+            return View(songList.ToList());
         }
 
         // GET: songs/Details/5
@@ -40,7 +47,8 @@ namespace MusicLibrary.Controllers
         public ActionResult Create()
         {
             ViewBag.album_id = new SelectList(db.albums, "id", "name");
-            ViewBag.artist_id = new SelectList(db.artists, "id", "name");
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName");
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName");
             return View();
         }
 
@@ -49,7 +57,7 @@ namespace MusicLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,artist_id,album_id,track_number")] song song)
+        public ActionResult Create([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +67,8 @@ namespace MusicLibrary.Controllers
             }
 
             ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "name", song.artist_id);
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
             return View(song);
         }
 
@@ -76,7 +85,8 @@ namespace MusicLibrary.Controllers
                 return HttpNotFound();
             }
             ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "name", song.artist_id);
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
             return View(song);
         }
 
@@ -85,7 +95,7 @@ namespace MusicLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,artist_id,album_id,track_number")] song song)
+        public ActionResult Edit([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +104,8 @@ namespace MusicLibrary.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "name", song.artist_id);
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
             return View(song);
         }
 
@@ -124,6 +135,19 @@ namespace MusicLibrary.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: songs
+        public ActionResult ArtistIndex(string ArtistName)
+        {
+            var ArtistList = new ArtistViewModel();
+            ArtistList.SongList = (from t in db.songs
+                            join art in db.artists on t.artist_id equals art.id where art.artistName == ArtistName
+                            join al in db.albums on t.album_id equals al.id
+                            join gen in db.genres on t.genre_id equals gen.id
+                            select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.name, GenreName = gen.genreName });
+            ArtistList.ArtistName = ArtistName;
+            return View("ArtistIndex",ArtistList);
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

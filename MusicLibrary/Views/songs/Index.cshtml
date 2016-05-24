@@ -1,10 +1,10 @@
-﻿@model IEnumerable<MusicLibrary.song>
+﻿@model IEnumerable<MusicLibrary.Models.SongsViewModel>
 
 @{
-    ViewBag.Title = "Library";
+    ViewBag.Title = "Index";
 }
 
-<h2>Music Library</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -18,10 +18,13 @@
             Track Number
         </th>
         <th>
-            Album
+            Album Name
         </th>
         <th>
-            Artist
+            Artist        
+        </th>
+        <th>
+            Genre Name
         </th>
         <th></th>
     </tr>
@@ -29,21 +32,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.name)
+            @Html.DisplayFor(modelItem => item.TrackName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.track_number)
+            @Html.DisplayFor(modelItem => item.TrackNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.album.name)
+            @Html.DisplayFor(modelItem => item.AlbumName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.artist.name)
+            @Html.ActionLink(item.ArtistName, "ArtistIndex", new { ArtistName = item.ArtistName })
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.DisplayFor(modelItem => item.GenreName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SongID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SongID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SongID })
         </td>
     </tr>
 }

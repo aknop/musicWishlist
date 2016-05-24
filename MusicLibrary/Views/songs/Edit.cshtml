@@ -1,5 +1,4 @@
 ﻿@model MusicLibrary.song
-
 @{
     ViewBag.Title = "Edit";
 }
@@ -26,18 +25,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.artist_id, "artist_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.artist.artistName, "Artist", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("artist_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.artist_id, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.artist.artistName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.artist.artistName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.album_id, "album_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.album.name, "Album", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("album_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.album_id, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.album.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.album.name, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -46,6 +45,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.track_number, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.track_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.genre.genreName, "Genre", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.genre.genreName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.genreName, "", new { @class = "text-danger" })
             </div>
         </div>
 

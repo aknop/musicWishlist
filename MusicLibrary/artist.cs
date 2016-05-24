@@ -22,7 +22,7 @@ namespace MusicLibrary
         }
     
         public int id { get; set; }
-        public string name { get; set; }
+        public string artistName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<album> albums { get; set; }

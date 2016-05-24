@@ -1,0 +1,49 @@
+﻿@model MusicLibrary.Models.ArtistViewModel
+
+@{
+    ViewBag.Title = Model.ArtistName;
+}
+
+<h2>Songs</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Track Name
+        </th>
+        <th>
+            Track
+        </th>
+        <th>
+            Album Name
+        </th>
+        <th>
+            Genre
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.SongList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenreName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SongID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SongID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SongID })
+            </td>
+        </tr>
+    }
+
+</table>

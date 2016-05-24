@@ -19,8 +19,10 @@ namespace MusicLibrary
         public Nullable<int> artist_id { get; set; }
         public Nullable<int> album_id { get; set; }
         public Nullable<int> track_number { get; set; }
+        public Nullable<int> genre_id { get; set; }
     
         public virtual album album { get; set; }
         public virtual artist artist { get; set; }
+        public virtual genre genre { get; set; }
     }
 }
