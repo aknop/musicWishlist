@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MusicLibrary.Models.SongsViewModel>
 
 @{
-    ViewBag.Title = "Genres";
+    ViewBag.Title = "Albums";
 }
 
-<h2>Genres</h2>
+<h2>Albums</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,21 +13,22 @@
 <table class="table">
     <tr>
         <th>
-            Genre Name
+            Album
         </th>
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.GenreName)
+                @Html.DisplayFor(modelItem => item.AlbumName)
             </td>
             <td>
-                @Html.ActionLink("Edit","Edit",new { id = item.SongID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.SongID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.SongID })
             </td>
         </tr>
     }
-</table>
 
+</table>

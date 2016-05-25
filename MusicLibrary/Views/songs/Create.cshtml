@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>song</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -34,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.album.name, "Album", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.album.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("album_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.album.name, "", new { @class = "text-danger" })
             </div>
         </div>
