@@ -185,6 +185,19 @@ namespace MusicLibrary.Controllers
             return View(song);
         }
 
+
+        public ActionResult AlbumIndex(string AlbumName)
+        {
+            var AlbumList = new AlbumViewModel();
+            AlbumList.SongList = (from t in db.songs
+                                   join art in db.artists on t.artist_id equals art.id
+                                   join al in db.albums on t.album_id equals al.id where al.name == AlbumName
+                                   join gen in db.genres on t.genre_id equals gen.id orderby t.track_number
+                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.name, GenreName = gen.genreName });
+            AlbumList.AlbumName = AlbumName;
+            return View("AlbumIndex", AlbumList);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
