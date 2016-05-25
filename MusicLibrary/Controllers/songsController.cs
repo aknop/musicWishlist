@@ -147,7 +147,44 @@ namespace MusicLibrary.Controllers
             ArtistList.ArtistName = ArtistName;
             return View("ArtistIndex",ArtistList);
         }
-        
+
+        // GET: songs/Edit/5
+        public ActionResult ArtistEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            song song = db.songs.Find(id);
+            if (song == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
+            return View(song);
+        }
+
+        // POST: songs/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ArtistEdit([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(song).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ArtistIndex");
+            }
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
+            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
+            return View(song);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

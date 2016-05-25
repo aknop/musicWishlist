@@ -15,6 +15,9 @@
         <th>
             Album
         </th>
+        <th>
+            Artist
+        </th>
         <th></th>
     </tr>
 
@@ -23,6 +26,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.AlbumName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtistName)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.SongID }) |

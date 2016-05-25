@@ -16,14 +16,16 @@ namespace MusicLibrary.Controllers
         // GET: Album
         public ActionResult Index()
         {
-            var genreList = (from t in db.albums select new SongsViewModel { SongID = t.id, AlbumName = t.name });
-            return View(genreList.ToList());
+            var albumList = (from t in db.albums
+                             join art in db.artists on t.artist_id equals art.id
+                             select new SongsViewModel { SongID = t.id, AlbumName = t.name, ArtistName = art.artistName });
+            return View(albumList.ToList());
         }
 
         // GET: album/Create
         public ActionResult Create()
         {
-            ViewBag.album_id = new SelectList(db.albums, "id", "albumName");
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName");
             return View();
         }
 
@@ -32,7 +34,7 @@ namespace MusicLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name")] album album)
+        public ActionResult Create([Bind(Include = "id,name,artist_id")] album album)
         {
             if (ModelState.IsValid)
             {
@@ -40,8 +42,7 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.genre_id = new SelectList(db.albums, "id", "name", album.name);
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", album.artist_id);
             return View(album);
         }
 
@@ -57,6 +58,8 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", album.artist_id);
+
             return View(album);
         }
 
@@ -84,6 +87,8 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", album.artist_id);
+
             return View(album);
         }
 
@@ -92,7 +97,7 @@ namespace MusicLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name")] album album)
+        public ActionResult Edit([Bind(Include = "id,name,artist_id")] album album)
         {
             if (ModelState.IsValid)
             {
@@ -100,6 +105,8 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", album.artist_id);
+
             return View(album);
         }
     }
