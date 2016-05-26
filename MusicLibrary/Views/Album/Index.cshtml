@@ -31,8 +31,8 @@
                 @Html.DisplayFor(modelItem => item.ArtistName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SongID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.SongID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.SongID }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.SongID }, new { @class = "btn btn-primary btn-danger" })
             </td>
         </tr>
     }
