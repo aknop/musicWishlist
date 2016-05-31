@@ -13,7 +13,7 @@ namespace MusicLibrary.Controllers
 {
     public class ArtistController : Controller
     {
-        private trueEntities db = new trueEntities();
+        private TrueEntities db = new TrueEntities();
 
         // GET: Artist
         public ActionResult Index()

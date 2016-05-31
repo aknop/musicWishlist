@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Songs.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="SampleDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="album">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="artist_id" Type="int" />
-    <Property Name="genre_id" Type="int" />
     <Property Name="name" Type="varchar" MaxLength="25" />
   </EntityType>
   <EntityType Name="artist">
@@ -34,7 +33,7 @@
     <Property Name="track_number" Type="int" />
     <Property Name="genre_id" Type="int" />
   </EntityType>
-  <Association Name="FK__album__artist_id__72910220">
+  <Association Name="FK__album__artist_id__19AACF41">
     <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
     <End Role="album" Type="Self.album" Multiplicity="*" />
     <ReferentialConstraint>
@@ -46,19 +45,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__album__genre_id__73852659">
-    <End Role="genre" Type="Self.genre" Multiplicity="0..1" />
-    <End Role="album" Type="Self.album" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="genre">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="album">
-        <PropertyRef Name="genre_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__songs__album_id__7755B73D">
+  <Association Name="FK__songs__album_id__1D7B6025">
     <End Role="album" Type="Self.album" Multiplicity="0..1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -70,7 +57,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__artist_id__76619304">
+  <Association Name="FK__songs__artist_id__1C873BEC">
     <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -82,7 +69,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__genre_id__7849DB76">
+  <Association Name="FK__songs__genre_id__1E6F845E">
     <End Role="genre" Type="Self.genre" Multiplicity="0..1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -94,28 +81,24 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="SongsStoreContainer">
+  <EntityContainer Name="SampleDBModelStoreContainer">
     <EntitySet Name="album" EntityType="Self.album" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="artist" EntityType="Self.artist" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="songs" EntityType="Self.songs" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__album__artist_id__72910220" Association="Self.FK__album__artist_id__72910220">
+    <AssociationSet Name="FK__album__artist_id__19AACF41" Association="Self.FK__album__artist_id__19AACF41">
       <End Role="artist" EntitySet="artist" />
       <End Role="album" EntitySet="album" />
     </AssociationSet>
-    <AssociationSet Name="FK__album__genre_id__73852659" Association="Self.FK__album__genre_id__73852659">
-      <End Role="genre" EntitySet="genre" />
-      <End Role="album" EntitySet="album" />
-    </AssociationSet>
-    <AssociationSet Name="FK__songs__album_id__7755B73D" Association="Self.FK__songs__album_id__7755B73D">
+    <AssociationSet Name="FK__songs__album_id__1D7B6025" Association="Self.FK__songs__album_id__1D7B6025">
       <End Role="album" EntitySet="album" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__artist_id__76619304" Association="Self.FK__songs__artist_id__76619304">
+    <AssociationSet Name="FK__songs__artist_id__1C873BEC" Association="Self.FK__songs__artist_id__1C873BEC">
       <End Role="artist" EntitySet="artist" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__genre_id__7849DB76" Association="Self.FK__songs__genre_id__7849DB76">
+    <AssociationSet Name="FK__songs__genre_id__1E6F845E" Association="Self.FK__songs__genre_id__1E6F845E">
       <End Role="genre" EntitySet="genre" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>

@@ -12,7 +12,7 @@ namespace MusicLibrary.Controllers
 {
     public class AlbumController : Controller
     {
-        private trueEntities db = new trueEntities();
+        private TrueEntities db = new TrueEntities();
         // GET: Album
         public ActionResult Index()
         {

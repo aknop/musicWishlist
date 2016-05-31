@@ -9,26 +9,29 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @Html.ActionLink("Download Report(pdf)", "Report")
+</p>
 <table class="table">
     <tr>
         <th>
-            Track Name
+            Track
         </th>
         <th>
             Track Number
         </th>
         <th>
-            Album Name
+            Album
         </th>
         <th>
             Artist        
         </th>
         <th>
-            Genre Name
+            Genre
         </th>
         <th></th>
     </tr>
-
+    
 @foreach (var item in Model) {
     <tr>
         <td>

@@ -8,12 +8,16 @@ using System.Web;
 using System.Web.Mvc;
 using MusicLibrary;
 using MusicLibrary.Models;
+using MusicLibrary.Reports;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using System.Data.SqlClient;
 
 namespace MusicLibrary.Controllers
 {
     public class songsController : Controller
     {
-        private trueEntities db = new trueEntities();
+        private TrueEntities db = new TrueEntities();
 
         // GET: songs
         public ActionResult Index()
@@ -23,8 +27,7 @@ namespace MusicLibrary.Controllers
                             join al in db.albums on t.album_id equals al.id
                             join gen in db.genres on t.genre_id equals gen.id
                             select new SongsViewModel{ SongID = t.id, TrackName=t.name, TrackNumber = t.track_number, ArtistName = art.artistName, AlbumName = al.name, GenreName= gen.genreName });
-
-        
+            
             return View(songList.ToList());
         }
 
@@ -197,6 +200,35 @@ namespace MusicLibrary.Controllers
             AlbumList.AlbumName = AlbumName;
             return View("AlbumIndex", AlbumList);
         }
+        public ActionResult Report()
+        {   ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/SongReport.rpt")));
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", "SongList.pdf");
+
+            //SqlConnection con = new SqlConnection("data source=KLA-SPARE01\\SQLEXPRESS;initial catalog=SampleDB;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework;");
+            //DataTable dt = new DataTable();
+            //try
+            //{
+            //    con.Open();
+            //    SqlCommand cmd = new SqlCommand("SELECT * FROM SongView", con);
+            //    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //    adp.Fill(dt);
+            //}
+            //catch (Exception ex)
+            //{
+            //}
+            //ReportClass rptH = new ReportClass();
+            //rptH.FileName = Server.MapPath("/Reports/SongReport.rpt");
+            //rptH.Load();
+            //rptH.SetDataSource(dt);
+            //Stream stream = rptH.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            //return File(stream, "application/pdf");
+        }
+    
 
         protected override void Dispose(bool disposing)
         {

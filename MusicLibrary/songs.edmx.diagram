@@ -4,16 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d9feea4d222a41f88515aec02d84119a" Name="Diagram1">
-        <EntityTypeShape EntityType="Songs.album" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Songs.artist" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Songs.genre" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Songs.song" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="Songs.FK__album__artist_id__72910220" ManuallyRouted="false" />
-        <AssociationConnector Association="Songs.FK__album__genre_id__73852659" ManuallyRouted="false" />
-        <AssociationConnector Association="Songs.FK__songs__album_id__7755B73D" ManuallyRouted="false" />
-        <AssociationConnector Association="Songs.FK__songs__artist_id__76619304" ManuallyRouted="false" />
-        <AssociationConnector Association="Songs.FK__songs__genre_id__7849DB76" ManuallyRouted="false" />
+      <Diagram DiagramId="9577bb44974342b79ed100aaf8e2a649" Name="Diagram1">
+        <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SampleDBModel.artist" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SampleDBModel.genre" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SampleDBModel.song" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="SampleDBModel.FK__album__artist_id__19AACF41" ManuallyRouted="false" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__1D7B6025" ManuallyRouted="false" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__artist_id__1C873BEC" ManuallyRouted="false" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__1E6F845E" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -13,9 +13,9 @@ namespace MusicLibrary
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class trueEntities : DbContext
+    public partial class TrueEntities : DbContext
     {
-        public trueEntities()
+        public TrueEntities()
             : base("name=trueEntities")
         {
         }

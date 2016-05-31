@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="SongsStoreContainer" CdmEntityContainer="trueEntities">
+  <EntityContainerMapping StorageEntityContainer="SampleDBModelStoreContainer" CdmEntityContainer="TrueEntities">
     <EntitySetMapping Name="albums">
-      <EntityTypeMapping TypeName="Songs.album">
+      <EntityTypeMapping TypeName="SampleDBModel.album">
         <MappingFragment StoreEntitySet="album">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="artist_id" ColumnName="artist_id" />
-          <ScalarProperty Name="genre_id" ColumnName="genre_id" />
           <ScalarProperty Name="name" ColumnName="name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="artists">
-      <EntityTypeMapping TypeName="Songs.artist">
+      <EntityTypeMapping TypeName="SampleDBModel.artist">
         <MappingFragment StoreEntitySet="artist">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="artistName" ColumnName="artistName" />
@@ -20,7 +19,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="genres">
-      <EntityTypeMapping TypeName="Songs.genre">
+      <EntityTypeMapping TypeName="SampleDBModel.genre">
         <MappingFragment StoreEntitySet="genre">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="genreName" ColumnName="genreName" />
@@ -28,7 +27,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="songs">
-      <EntityTypeMapping TypeName="Songs.song">
+      <EntityTypeMapping TypeName="SampleDBModel.song">
         <MappingFragment StoreEntitySet="songs">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
