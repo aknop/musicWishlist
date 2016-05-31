@@ -111,6 +111,8 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            song song = db.songs.Find(id);
+            db.songs.Remove(song);
             artist artist = db.artists.Find(id);
             db.artists.Remove(artist);
             db.SaveChanges();

@@ -354,6 +354,11 @@
     <Content Include="songs.edmx.diagram">
       <DependentUpon>songs.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\songs\AlbumEdit.cshtml" />
+    <Content Include="Views\songs\AlbumDetails.cshtml" />
+    <Content Include="Views\songs\AlbumDelete.cshtml" />
+    <Content Include="Views\songs\ArtistDetails.cshtml" />
+    <Content Include="Views\songs\ArtistDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

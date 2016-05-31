@@ -1,0 +1,64 @@
+﻿@model MusicLibrary.song
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Track Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            Track Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.track_number)
+        </dd>
+
+        <dt>
+            Album
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album.name)
+        </dd>
+
+        <dt>
+            Artist
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.artist.artistName)
+        </dd>
+
+        <dt>
+            Genre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.genre.genreName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "ArtistIndex", new { ArtistName = Model.artist.artistName })
+        </div>
+    }
+</div>

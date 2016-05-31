@@ -39,9 +39,9 @@
                 @Html.DisplayFor(modelItem => item.GenreName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SongID }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Details", "Details", new { id = item.SongID }, new { @class = "btn btn-success" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.SongID }, new { @class = "btn btn-primary btn-danger" })
+                @Html.ActionLink("Edit", "ArtistEdit", new { id = item.SongID }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Details", "ArtistDetails", new { id = item.SongID }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Delete", "ArtistDelete", new { id = item.SongID }, new { @class = "btn btn-primary btn-danger" })
             </td>
         </tr>
     }

@@ -56,8 +56,6 @@ namespace MusicLibrary.Controllers
         }
 
         // POST: songs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
@@ -112,7 +110,7 @@ namespace MusicLibrary.Controllers
             return View(song);
         }
 
-        // GET: songs/Delete/5
+        // GET: delete song
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,7 +125,7 @@ namespace MusicLibrary.Controllers
             return View(song);
         }
 
-        // POST: songs/Delete/5
+        // POST: delete song
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -138,7 +136,7 @@ namespace MusicLibrary.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: songs
+        // sort songs by artist
         public ActionResult ArtistIndex(string ArtistName)
         {
             var ArtistList = new ArtistViewModel();
@@ -151,7 +149,7 @@ namespace MusicLibrary.Controllers
             return View("ArtistIndex",ArtistList);
         }
 
-        // GET: songs/Edit/5
+        // ArtistIndex edit
         public ActionResult ArtistEdit(int? id)
         {
             if (id == null)
@@ -169,9 +167,7 @@ namespace MusicLibrary.Controllers
             return View(song);
         }
 
-        // POST: songs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // ArtistIndex edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ArtistEdit([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
@@ -180,15 +176,13 @@ namespace MusicLibrary.Controllers
             {
                 db.Entry(song).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ArtistIndex");
+                var ArtistNameID = db.artists.Find(song.artist_id).artistName;
+                return RedirectToAction("ArtistIndex", new { ArtistName = ArtistNameID });
             }
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
-            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
             return View(song);
         }
 
-
+        //View a sorted list of albums
         public ActionResult AlbumIndex(string AlbumName)
         {
             var AlbumList = new AlbumViewModel();
@@ -200,6 +194,127 @@ namespace MusicLibrary.Controllers
             AlbumList.AlbumName = AlbumName;
             return View("AlbumIndex", AlbumList);
         }
+
+        //AlbumIndex edit 
+        public ActionResult AlbumEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            song song = db.songs.Find(id);
+            if (song == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
+
+            return View(song);
+        }
+
+        //AlbumIndex edit 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AlbumEdit([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(song).State = EntityState.Modified;
+                db.SaveChanges();
+                var AlbumNameID = db.albums.Find(song.album_id).name;
+                return RedirectToAction("AlbumIndex", new { AlbumName = AlbumNameID });
+            }
+
+            return View(song);
+        }
+        // AlbumIndex details
+        public ActionResult AlbumDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            song song = db.songs.Find(id);
+            if (song == null)
+            {
+                return HttpNotFound();
+            }
+            return View(song);
+        }
+        // AlbumIndex delete
+        public ActionResult AlbumDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            song song = db.songs.Find(id);
+            if (song == null)
+            {
+                return HttpNotFound();
+            }
+            return View(song);
+        }
+
+        // AlbumIndex delete
+        [HttpPost, ActionName("AlbumDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult AlbumDeleteConfirmed(int id)
+        {
+            song song = db.songs.Find(id);
+            var AlbumNameID = db.albums.Find(song.album_id).name;
+            db.songs.Remove(song);
+            db.SaveChanges();
+            
+            return RedirectToAction("AlbumIndex", new { AlbumName = AlbumNameID });
+        }
+
+        // ArtistIndex details
+        public ActionResult ArtistDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            song song = db.songs.Find(id);
+            if (song == null)
+            {
+                return HttpNotFound();
+            }
+            return View(song);
+        }
+        // ArtistIndex delete
+        public ActionResult ArtistDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            song song = db.songs.Find(id);
+            if (song == null)
+            {
+                return HttpNotFound();
+            }
+            return View(song);
+        }
+
+        // ArtistIndex delete
+        [HttpPost, ActionName("ArtistDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ArtistDeleteConfirmed(int id)
+        {
+            song song = db.songs.Find(id);
+            var ArtistNameID = db.artists.Find(song.album_id).artistName ;
+            db.songs.Remove(song);
+            db.SaveChanges();
+
+            return RedirectToAction("ArtistIndex", new { ArtistName = ArtistNameID });
+        }
+        
+
+
         public ActionResult Report()
         {   ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports/SongReport.rpt")));
@@ -208,25 +323,6 @@ namespace MusicLibrary.Controllers
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", "SongList.pdf");
-
-            //SqlConnection con = new SqlConnection("data source=KLA-SPARE01\\SQLEXPRESS;initial catalog=SampleDB;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework;");
-            //DataTable dt = new DataTable();
-            //try
-            //{
-            //    con.Open();
-            //    SqlCommand cmd = new SqlCommand("SELECT * FROM SongView", con);
-            //    SqlDataAdapter adp = new SqlDataAdapter(cmd);
-            //    adp.Fill(dt);
-            //}
-            //catch (Exception ex)
-            //{
-            //}
-            //ReportClass rptH = new ReportClass();
-            //rptH.FileName = Server.MapPath("/Reports/SongReport.rpt");
-            //rptH.Load();
-            //rptH.SetDataSource(dt);
-            //Stream stream = rptH.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-            //return File(stream, "application/pdf");
         }
     
 

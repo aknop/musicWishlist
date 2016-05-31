@@ -1,0 +1,57 @@
+﻿@model MusicLibrary.song
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Track Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            Track Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.track_number)
+        </dd>
+
+        <dt>
+            Album
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album.name)
+        </dd>
+
+        <dt>
+            Artist
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.artist.artistName)
+        </dd>
+
+        <dt>
+            Genre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.genre.genreName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "ArtistIndex", new { ArtistName = Model.artist.artistName })
+</p>
