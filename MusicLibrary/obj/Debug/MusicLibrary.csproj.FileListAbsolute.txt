@@ -112,4 +112,3 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\MusicLibrary\MusicLibrary\bi
 C:\Users\user\Documents\Visual Studio 2015\Projects\MusicLibrary\MusicLibrary\bin\ShockwaveFlashObjects.dll
 C:\Users\user\Documents\Visual Studio 2015\Projects\MusicLibrary\MusicLibrary\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\user\Documents\Visual Studio 2015\Projects\MusicLibrary\MusicLibrary\bin\stdole.dll
-C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\obj\Debug\MusicLibrary.csprojResolveAssemblyReference.cache
