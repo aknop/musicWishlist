@@ -18,7 +18,7 @@ namespace MusicLibrary
         public string name { get; set; }
         public Nullable<int> artist_id { get; set; }
         public Nullable<int> album_id { get; set; }
-        public Nullable<int> track_number { get; set; }
+        public int track_number { get; set; }
         public Nullable<int> genre_id { get; set; }
     
         public virtual album album { get; set; }

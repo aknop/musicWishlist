@@ -8,10 +8,16 @@ using System.Web;
 using System.Web.Mvc;
 using MusicLibrary;
 using MusicLibrary.Models;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
+
 namespace MusicLibrary.Controllers
 {
+    
     public class GenreController : Controller
     {
+        
         private TrueEntities db = new TrueEntities();
         // GET: Genre
         public ActionResult Index()
@@ -20,6 +26,7 @@ namespace MusicLibrary.Controllers
             return View(genreList.ToList());
         }
 
+        
         // GET: songs/Create
         public ActionResult Create()
         {
@@ -34,10 +41,26 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,genreName")] genre genre)
         {
+            
             if (ModelState.IsValid)
             {
                 db.genres.Add(genre);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }
+                }
                 return RedirectToAction("Index");
             }
             

@@ -49,27 +49,30 @@ namespace MusicLibrary.Controllers
         // GET: songs/Create
         public ActionResult Create()
         {
+            SongsViewModel sv = new SongsViewModel();
+                sv.ArtistNames
             ViewBag.album_id = new SelectList(db.albums, "id", "name");
             ViewBag.artist_id = new SelectList(db.artists, "id", "artistName");
             ViewBag.genre_id = new SelectList(db.genres, "id", "genreName");
-            return View();
+            return View(sv);
         }
 
         // POST: songs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
+        public ActionResult Create(SongsViewModel song)
         {
+            song s = song.ToModel();
             if (ModelState.IsValid)
             {
-                db.songs.Add(song);
+                db.songs.Add(s);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
+            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.AlbumName);
+            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.ArtistName);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.GenreName);
             return View(song);
         }
 

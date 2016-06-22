@@ -16,7 +16,7 @@ namespace MusicLibrary
     public partial class TrueEntities : DbContext
     {
         public TrueEntities()
-            : base("name=trueEntities")
+            : base("name=TrueEntities")
         {
         }
     

@@ -30,8 +30,6 @@ namespace MusicLibrary.Controllers
         }
 
         // POST: album/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,name,artist_id")] album album)
@@ -68,8 +66,13 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            song song = db.songs.Find(id);
-            db.songs.Remove(song);
+           
+            var songs = db.songs.Where(s =>s.album_id == id).ToList();
+            foreach (var s in songs)
+            {
+                db.songs.Remove(s);
+            }
+                       
             album album = db.albums.Find(id);
             db.albums.Remove(album);
             db.SaveChanges();

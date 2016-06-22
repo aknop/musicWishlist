@@ -15,7 +15,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="artistName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="artistName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="albums" Relationship="Self.FK__album__artist_id__19AACF41" FromRole="artist" ToRole="album" />
     <NavigationProperty Name="songs" Relationship="Self.FK__songs__artist_id__1C873BEC" FromRole="artist" ToRole="songs" />
   </EntityType>
@@ -24,7 +24,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="genreName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="genreName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="songs" Relationship="Self.FK__songs__genre_id__1E6F845E" FromRole="genre" ToRole="songs" />
   </EntityType>
   <EntityType Name="song">
@@ -32,10 +32,10 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="artist_id" Type="Int32" />
     <Property Name="album_id" Type="Int32" />
-    <Property Name="track_number" Type="Int32" />
+    <Property Name="track_number" Type="Int32" Nullable="false" />
     <Property Name="genre_id" Type="Int32" />
     <NavigationProperty Name="album" Relationship="Self.FK__songs__album_id__1D7B6025" FromRole="songs" ToRole="album" />
     <NavigationProperty Name="artist" Relationship="Self.FK__songs__artist_id__1C873BEC" FromRole="songs" ToRole="artist" />
