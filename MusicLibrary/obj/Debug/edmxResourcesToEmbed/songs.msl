@@ -29,12 +29,12 @@
     <EntitySetMapping Name="songs">
       <EntityTypeMapping TypeName="SampleDBModel.song">
         <MappingFragment StoreEntitySet="songs">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="artist_id" ColumnName="artist_id" />
-          <ScalarProperty Name="album_id" ColumnName="album_id" />
-          <ScalarProperty Name="track_number" ColumnName="track_number" />
           <ScalarProperty Name="genre_id" ColumnName="genre_id" />
+          <ScalarProperty Name="track_number" ColumnName="track_number" />
+          <ScalarProperty Name="album_id" ColumnName="album_id" />
+          <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

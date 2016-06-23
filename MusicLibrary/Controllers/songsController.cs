@@ -43,7 +43,9 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            return View(song);
+            SongsViewModel sv = new SongsViewModel();
+            sv.FromModel(song);
+            return View(sv);
         }
 
         // GET: songs/Create
@@ -82,19 +84,18 @@ namespace MusicLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            song song = db.songs.Find(id);
-            if (song == null)
+            song ss = db.songs.Find(id);
+            
+            if (ss == null)
             {
                 return HttpNotFound();
             }
-            //SongsViewModel sv = new SongsViewModel();
-            //sv.ArtistNames = new SelectList(db.artists, "id", "ArtistName", song.artist_id);
-            //sv.AlbumNames = new SelectList(db.albums, "id", "TrackName", song.album_id);
-            //sv.GenreNames = new SelectList(db.genres, "id", "GenreName", song.genre_id);
-            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
-            return View(song);
+            SongsViewModel sv = new SongsViewModel();
+            sv.FromModel(ss);
+            sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
+            sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
+            sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
+            return View(sv);
         }
 
         // POST: songs/Edit/5
@@ -102,17 +103,19 @@ namespace MusicLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
+        public ActionResult Edit(SongsViewModel song)
         {
+            song s = song.ToModel();
             if (ModelState.IsValid)
             {
-                db.Entry(song).State = EntityState.Modified;
+                db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
+            SongsViewModel sv = new SongsViewModel();
+            sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            sv.AlbumNames = new SelectList(db.albums, "id", "name");
+            sv.GenreNames = new SelectList(db.genres, "id", "genreName");
             return View(song);
         }
 
@@ -128,7 +131,9 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            return View(song);
+            SongsViewModel sv = new SongsViewModel();
+            sv.FromModel(song);
+            return View(sv);
         }
 
         // POST: delete song
@@ -185,7 +190,11 @@ namespace MusicLibrary.Controllers
                 var ArtistNameID = db.artists.Find(song.artist_id).artistName;
                 return RedirectToAction("ArtistIndex", new { ArtistName = ArtistNameID });
             }
-            return View(song);
+            SongsViewModel sv = new SongsViewModel();
+            sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            sv.AlbumNames = new SelectList(db.albums, "id", "name");
+            sv.GenreNames = new SelectList(db.genres, "id", "genreName");
+            return View(sv);
         }
 
         //View a sorted list of albums
@@ -208,32 +217,34 @@ namespace MusicLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            song song = db.songs.Find(id);
-            if (song == null)
+            song ss = db.songs.Find(id);
+            if (ss == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
+            SongsViewModel sv = new SongsViewModel();
+            sv.FromModel(ss);
+            sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
+            sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
+            sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
 
-            return View(song);
+            return View(sv);
         }
 
         //AlbumIndex edit 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AlbumEdit([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
+        public ActionResult AlbumEdit(SongsViewModel song)
         {
+            song s = song.ToModel();
             if (ModelState.IsValid)
             {
-                db.Entry(song).State = EntityState.Modified;
+                db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
-                var AlbumNameID = db.albums.Find(song.album_id).name;
-                return RedirectToAction("AlbumIndex", new { AlbumName = AlbumNameID });
+                return RedirectToAction("AlbumIndex",new { AlbumName = song.AlbumName });
             }
 
-            return View(song);
+            return View(s);
         }
         // AlbumIndex details
         public ActionResult AlbumDetails(int? id)
@@ -243,11 +254,13 @@ namespace MusicLibrary.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             song song = db.songs.Find(id);
+            SongsViewModel ss = new SongsViewModel();
+            ss.FromModel(song);
             if (song == null)
             {
                 return HttpNotFound();
             }
-            return View(song);
+            return View(ss);
         }
         // AlbumIndex delete
         public ActionResult AlbumDelete(int? id)
@@ -261,7 +274,9 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            return View(song);
+            SongsViewModel ss = new SongsViewModel();
+            ss.FromModel(song);
+            return View(ss);
         }
 
         // AlbumIndex delete
@@ -270,11 +285,12 @@ namespace MusicLibrary.Controllers
         public ActionResult AlbumDeleteConfirmed(int id)
         {
             song song = db.songs.Find(id);
-            var AlbumNameID = db.albums.Find(song.album_id).name;
+            SongsViewModel ss = new SongsViewModel();
+            ss.FromModel(song);
             db.songs.Remove(song);
             db.SaveChanges();
             
-            return RedirectToAction("AlbumIndex", new { AlbumName = AlbumNameID });
+            return RedirectToAction("AlbumIndex", new { AlbumName = ss.AlbumName });
         }
 
         // ArtistIndex details

@@ -16,13 +16,13 @@ namespace MusicLibrary
     {
         public int id { get; set; }
         public string name { get; set; }
-        public Nullable<int> artist_id { get; set; }
-        public Nullable<int> album_id { get; set; }
+        public int artist_id { get; set; }
+        public int album_id { get; set; }
         public int track_number { get; set; }
-        public Nullable<int> genre_id { get; set; }
+        public int genre_id { get; set; }
     
         public virtual album album { get; set; }
-        public virtual artist artist { get; set; }
         public virtual genre genre { get; set; }
+        public virtual genre genre1 { get; set; }
     }
 }

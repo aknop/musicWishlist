@@ -8,11 +8,11 @@
         <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SampleDBModel.artist" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SampleDBModel.genre" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SampleDBModel.song" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="SampleDBModel.FK__album__artist_id__19AACF41" ManuallyRouted="false" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__1D7B6025" ManuallyRouted="false" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__artist_id__1C873BEC" ManuallyRouted="false" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__1E6F845E" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SampleDBModel.song" Width="1.5" PointX="5.625" PointY="1.25" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__66EA454A" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__67DE6983" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__68D28DBC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

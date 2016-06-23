@@ -1,4 +1,4 @@
-﻿@model MusicLibrary.song
+﻿@model MusicLibrary.Models.SongsViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -10,12 +10,13 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
+        @Html.HiddenFor(model => model.AlbumName)
         <dt>
             Track Name
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.name)
+            @Html.DisplayFor(model => model.TrackName)
         </dd>
 
         <dt>
@@ -23,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.track_number)
+            @Html.DisplayFor(model => model.TrackNumber)
         </dd>
 
         <dt>
@@ -31,7 +32,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.album.name)
+            @Html.DisplayFor(model => model.AlbumName)
         </dd>
 
         <dt>
@@ -39,7 +40,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.artist.artistName)
+            @Html.DisplayFor(model => model.ArtistName)
         </dd>
 
         <dt>
@@ -47,7 +48,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.genre.genreName)
+            @Html.DisplayFor(model => model.GenreName)
         </dd>
 
     </dl>
@@ -57,7 +58,7 @@
         @Html.AntiForgeryToken()
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-primary btn-danger" /> |
-            @Html.ActionLink("Back to List", "AlbumIndex", new { AlbumName = Model.album.name })
+            @Html.ActionLink("Back to List", "AlbumIndex", new { AlbumName = Model.AlbumName })
         </div>
     }
 </div>

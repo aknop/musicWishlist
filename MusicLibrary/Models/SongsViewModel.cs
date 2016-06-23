@@ -37,10 +37,23 @@ namespace MusicLibrary.Models
                 album_id = AlbumID,
                 artist_id = ArtistID,
                 genre_id = GenreID,
-                name = TrackName
+                name = TrackName,
+                id = SongID
             };
         }
+        public void FromModel (song s)
+        {
 
+            TrackNumber = s.track_number;
+            ArtistID = s.artist_id;
+            AlbumID = s.album_id;
+            GenreID = s.genre_id;
+            TrackName = s.name;
+            SongID = s.id;
+            AlbumName = s.album.name;
+            ArtistName = s.album.artist.artistName;
+            GenreName = s.genre.genreName;
+        }
         
     }
 }

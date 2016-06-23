@@ -18,6 +18,7 @@ namespace MusicLibrary
         public genre()
         {
             this.songs = new HashSet<song>();
+            this.songs1 = new HashSet<song>();
         }
     
         public int id { get; set; }
@@ -25,5 +26,7 @@ namespace MusicLibrary
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<song> songs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<song> songs1 { get; set; }
     }
 }
