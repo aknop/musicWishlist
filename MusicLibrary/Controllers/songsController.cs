@@ -50,10 +50,9 @@ namespace MusicLibrary.Controllers
         public ActionResult Create()
         {
             SongsViewModel sv = new SongsViewModel();
-                sv.ArtistNames
-            ViewBag.album_id = new SelectList(db.albums, "id", "name");
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName");
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName");
+            sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            sv.AlbumNames = new SelectList(db.albums, "id", "name");
+            sv.GenreNames = new SelectList(db.genres, "id", "genreName");
             return View(sv);
         }
 
@@ -70,9 +69,9 @@ namespace MusicLibrary.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.AlbumName);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.ArtistName);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.GenreName);
+            song.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            song.AlbumNames = new SelectList(db.albums, "id", "name");
+            song.GenreNames = new SelectList(db.genres, "id", "genreName");
             return View(song);
         }
 
@@ -88,6 +87,10 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
+            //SongsViewModel sv = new SongsViewModel();
+            //sv.ArtistNames = new SelectList(db.artists, "id", "ArtistName", song.artist_id);
+            //sv.AlbumNames = new SelectList(db.albums, "id", "TrackName", song.album_id);
+            //sv.GenreNames = new SelectList(db.genres, "id", "GenreName", song.genre_id);
             ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
             ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
             ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);

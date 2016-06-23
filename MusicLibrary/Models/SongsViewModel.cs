@@ -13,6 +13,7 @@ namespace MusicLibrary.Models
         [Required(ErrorMessage="Name is required.")]
         public string TrackName { get; set; }
         [Required]
+        [Range(1,99,ErrorMessage ="Please enter a valid track number.")]
         public int TrackNumber { get; set; }
         [StringLength(25)]
         public string ArtistName { get; set; }
@@ -26,6 +27,8 @@ namespace MusicLibrary.Models
         public int SongID { get; set; }
 
         public IEnumerable<SelectListItem> ArtistNames = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> AlbumNames = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> GenreNames = new List<SelectListItem>();
         public song ToModel()
         {
             return new song
