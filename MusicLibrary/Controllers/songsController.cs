@@ -112,11 +112,7 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            SongsViewModel sv = new SongsViewModel();
-            sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
-            sv.AlbumNames = new SelectList(db.albums, "id", "name");
-            sv.GenreNames = new SelectList(db.genres, "id", "genreName");
-            return View(song);
+            return View(s);
         }
 
         // GET: delete song
@@ -167,34 +163,33 @@ namespace MusicLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            song song = db.songs.Find(id);
-            if (song == null)
+            song ss = db.songs.Find(id);
+            if (ss == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.album_id = new SelectList(db.albums, "id", "name", song.album_id);
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", song.artist_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", song.genre_id);
-            return View(song);
+            SongsViewModel sv = new SongsViewModel();
+            sv.FromModel(ss);
+            sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
+            sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
+            sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
+            return View(sv);
         }
 
         // ArtistIndex edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ArtistEdit([Bind(Include = "id,name,artist_id,album_id,track_number,genre_id")] song song)
+        public ActionResult ArtistEdit(SongsViewModel song)
         {
+            song s = song.ToModel();
+            
             if (ModelState.IsValid)
             {
-                db.Entry(song).State = EntityState.Modified;
+                db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
-                var ArtistNameID = db.artists.Find(song.artist_id).artistName;
-                return RedirectToAction("ArtistIndex", new { ArtistName = ArtistNameID });
+                return RedirectToAction("ArtistIndex", new { ArtistName = song.ArtistName });
             }
-            SongsViewModel sv = new SongsViewModel();
-            sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
-            sv.AlbumNames = new SelectList(db.albums, "id", "name");
-            sv.GenreNames = new SelectList(db.genres, "id", "genreName");
-            return View(sv);
+            return View(s);
         }
 
         //View a sorted list of albums
