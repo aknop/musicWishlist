@@ -16,6 +16,8 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.SongID)
         @Html.HiddenFor(model => model.AlbumName)
+        @Html.HiddenFor(model => model.ArtistName)
+
         <div class="form-group">
             @Html.LabelFor(model => model.TrackName, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -58,7 +60,6 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @*@Html.ActionLink("Save", "AlbumIndex", new { AlbumName = Model.AlbumName }, new { @class = "btn btn-default" ,InputType = "submit" });*@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
@@ -66,7 +67,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "AlbumIndex", new { AlbumName = Model.AlbumName })
+    @Html.ActionLink("Back to List", "AlbumIndex", new { AlbumName = Model.AlbumName, ArtistName = Model.ArtistName })
 </div>
 
 @section Scripts {

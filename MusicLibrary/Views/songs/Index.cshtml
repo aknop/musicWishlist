@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.TrackNumber)
         </td>
         <td>
-            @Html.ActionLink(item.AlbumName, "AlbumIndex", new { AlbumName = item.AlbumName })
+            @Html.ActionLink(item.AlbumName, "AlbumIndex", new { AlbumName = item.AlbumName, ArtistName = item.ArtistName })
         </td>
         <td>
             @Html.ActionLink(item.ArtistName, "ArtistIndex", new { ArtistName = item.ArtistName })

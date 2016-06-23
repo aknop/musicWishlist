@@ -11,6 +11,8 @@
     <hr />
     <dl class="dl-horizontal">
         @Html.HiddenFor(model => model.AlbumName)
+
+        @Html.HiddenFor(model => model.ArtistName)
         <dt>
             Track Name
         </dt>
@@ -58,7 +60,7 @@
         @Html.AntiForgeryToken()
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-primary btn-danger" /> |
-            @Html.ActionLink("Back to List", "AlbumIndex", new { AlbumName = Model.AlbumName })
+            @Html.ActionLink("Back to List", "AlbumIndex", new { AlbumName = Model.AlbumName, ArtistName = Model.ArtistName })
         </div>
     }
 </div>

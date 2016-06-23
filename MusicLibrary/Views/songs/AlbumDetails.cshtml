@@ -10,6 +10,7 @@
     <hr />
     <dl class="dl-horizontal">
         @Html.HiddenFor(model => model.AlbumName)
+        @Html.HiddenFor(model => model.ArtistName)
         <dt>
             Track Name
         </dt>
@@ -54,5 +55,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "AlbumEdit", new { id = Model.SongID }) |
-    @Html.ActionLink("Back to List", "AlbumIndex", new { AlbumName = Model.AlbumName })
+    @Html.ActionLink("Back to List", "AlbumIndex", new { AlbumName = Model.AlbumName, ArtistName = Model.ArtistName })
 </p>

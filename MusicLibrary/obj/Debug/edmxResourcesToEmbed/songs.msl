@@ -1,28 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SampleDBModelStoreContainer" CdmEntityContainer="TrueEntities">
-    <EntitySetMapping Name="albums">
-      <EntityTypeMapping TypeName="SampleDBModel.album">
-        <MappingFragment StoreEntitySet="album">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="artist_id" ColumnName="artist_id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="artists">
       <EntityTypeMapping TypeName="SampleDBModel.artist">
         <MappingFragment StoreEntitySet="artist">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="artistName" ColumnName="artistName" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="genres">
-      <EntityTypeMapping TypeName="SampleDBModel.genre">
-        <MappingFragment StoreEntitySet="genre">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="genreName" ColumnName="genreName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -34,6 +17,23 @@
           <ScalarProperty Name="album_id" ColumnName="album_id" />
           <ScalarProperty Name="artist_id" ColumnName="artist_id" />
           <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="albums">
+      <EntityTypeMapping TypeName="SampleDBModel.album">
+        <MappingFragment StoreEntitySet="album">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="genres">
+      <EntityTypeMapping TypeName="SampleDBModel.genre">
+        <MappingFragment StoreEntitySet="genre">
+          <ScalarProperty Name="genreName" ColumnName="genreName" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -198,15 +198,16 @@ namespace MusicLibrary.Controllers
         }
 
         //View a sorted list of albums
-        public ActionResult AlbumIndex(string AlbumName)
+        public ActionResult AlbumIndex(string AlbumName, string ArtistName)
         {
             var AlbumList = new AlbumViewModel();
             AlbumList.SongList = (from t in db.songs
-                                   join art in db.artists on t.artist_id equals art.id
+                                   join art in db.artists on t.artist_id equals art.id where art.artistName == ArtistName
                                    join al in db.albums on t.album_id equals al.id where al.name == AlbumName
                                    join gen in db.genres on t.genre_id equals gen.id orderby t.track_number
                                    select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.name, GenreName = gen.genreName });
             AlbumList.AlbumName = AlbumName;
+            AlbumList.ArtistName = ArtistName;
             return View("AlbumIndex", AlbumList);
         }
 
@@ -241,7 +242,7 @@ namespace MusicLibrary.Controllers
             {
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("AlbumIndex",new { AlbumName = song.AlbumName });
+                return RedirectToAction("AlbumIndex",new { AlbumName = song.AlbumName, ArtistName = song.ArtistName });
             }
 
             return View(s);

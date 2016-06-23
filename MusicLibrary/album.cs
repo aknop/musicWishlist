@@ -24,7 +24,6 @@ namespace MusicLibrary
         public Nullable<int> artist_id { get; set; }
         public string name { get; set; }
     
-        public virtual artist artist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<song> songs { get; set; }
     }

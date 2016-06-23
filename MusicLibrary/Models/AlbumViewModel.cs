@@ -8,6 +8,7 @@ namespace MusicLibrary.Models
     public class AlbumViewModel
     {
         public string AlbumName { get; set; }
+        public string ArtistName { get; set; }
         public IEnumerable<SongsViewModel> SongList { get; set; }
         
     }

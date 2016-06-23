@@ -5,14 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9577bb44974342b79ed100aaf8e2a649" Name="Diagram1">
-        <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SampleDBModel.artist" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SampleDBModel.genre" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <AssociationConnector Association="SampleDBModel.FK__album__artist_id__19AACF41" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SampleDBModel.song" Width="1.5" PointX="5.625" PointY="1.25" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__66EA454A" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__67DE6983" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__68D28DBC" />
+        <EntityTypeShape EntityType="SampleDBModel.song" Width="1.5" PointX="3.375" PointY="1.25" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__artist_id__6CA31EA0" />
+        <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="5.25" PointY="1.5" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__6D9742D9" />
+        <EntityTypeShape EntityType="SampleDBModel.genre" Width="1.5" PointX="3.375" PointY="4.75" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__762C88DA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
