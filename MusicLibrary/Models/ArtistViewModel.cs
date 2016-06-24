@@ -11,5 +11,20 @@ namespace MusicLibrary.Models
         public int ArtistID { get; set; }
         public IEnumerable<SongsViewModel> SongList { get; set; }
 
+
+        public void ToModel(artist a)
+        {
+            ArtistName = a.artistName;
+            ArtistID = a.id;
+        }
+
+        public artist FromModel()
+        {
+            return new artist
+            {
+                artistName = ArtistName,
+                id = ArtistID
+            };
+        }
     }
 }

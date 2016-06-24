@@ -18,25 +18,10 @@ namespace MusicLibrary.Controllers
         // GET: Artist
         public ActionResult Index()
         {
-            var artistList = (from t in db.artists select new SongsViewModel { SongID = t.id, ArtistName = t.artistName });
+            var artistList = (from t in db.artists select new ArtistViewModel { ArtistID = t.id, ArtistName = t.artistName });
             return View(artistList.ToList());
         }
-
-        // GET: Artist/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            artist artist = db.artists.Find(id);
-            if (artist == null)
-            {
-                return HttpNotFound();
-            }
-            return View(artist);
-        }
-
+        
         // GET: Artist/Create
         public ActionResult Create()
         {
@@ -44,19 +29,18 @@ namespace MusicLibrary.Controllers
         }
 
         // POST: Artist/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,artistName")] artist artist)
+        public ActionResult Create(ArtistViewModel artist)
         {
+            artist ar = artist.FromModel();
             if (ModelState.IsValid)
             {
-                db.artists.Add(artist);
+                db.artists.Add(ar);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            
             return View(artist);
         }
 
@@ -72,19 +56,20 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            return View(artist);
+            ArtistViewModel ar = new ArtistViewModel();
+            ar.ToModel(artist);
+            return View(ar);
         }
 
-        // POST: Artist/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Artist/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,artistName")] artist artist)
+        public ActionResult Edit(ArtistViewModel artist)
         {
+            artist ar = artist.FromModel();
             if (ModelState.IsValid)
             {
-                db.Entry(artist).State = EntityState.Modified;
+                db.Entry(ar).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -103,7 +88,10 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            return View(artist);
+            ArtistViewModel ar = new ArtistViewModel();
+            ar.ToModel(artist);
+
+            return View(ar);
         }
 
         // POST: Artist/Delete/5
