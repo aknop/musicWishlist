@@ -18,30 +18,33 @@ namespace MusicLibrary.Controllers
         {
             var albumList = (from t in db.albums
                              join art in db.artists on t.artist_id equals art.id
-                             select new SongsViewModel { SongID = t.id, AlbumName = t.name, ArtistName = art.artistName });
+                             select new AlbumViewModel { AlbumID = t.id, AlbumName = t.name, ArtistName = art.artistName });
             return View(albumList.ToList());
         }
 
         // GET: album/Create
         public ActionResult Create()
         {
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName");
-            return View();
+            AlbumViewModel av = new AlbumViewModel();
+            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            return View(av);
         }
 
         // POST: album/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,artist_id")] album album)
+        public ActionResult Create(AlbumViewModel album)
         {
+            album al = album.FromModel();
             if (ModelState.IsValid)
             {
-                db.albums.Add(album);
+                db.albums.Add(al);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", album.artist_id);
-            return View(album);
+            AlbumViewModel av = new AlbumViewModel();
+            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            return View(av);
         }
 
         // GET: songs/Delete/5
@@ -56,9 +59,9 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", album.artist_id);
-
-            return View(album);
+            AlbumViewModel al = new AlbumViewModel();
+            al.ToModel(album);
+            return View(al);
         }
 
         // POST: songs/Delete/5
@@ -92,9 +95,12 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", album.artist_id);
 
-            return View(album);
+            AlbumViewModel al = new AlbumViewModel();
+            al.ToModel(album);
+            al.ArtistNames = new SelectList(db.artists, "id", "artistName", al.ArtistID);
+
+            return View(al);
         }
 
         // POST: album/Edit/5
@@ -102,17 +108,16 @@ namespace MusicLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,artist_id")] album album)
+        public ActionResult Edit(AlbumViewModel album)
         {
+            album al = album.FromModel();
             if (ModelState.IsValid)
             {
-                db.Entry(album).State = EntityState.Modified;
+                db.Entry(al).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.artist_id = new SelectList(db.artists, "id", "artistName", album.artist_id);
-
-            return View(album);
+            return View(al);
         }
     }
 }
