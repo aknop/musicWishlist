@@ -44,7 +44,7 @@ namespace MusicLibrary.Controllers
                 return HttpNotFound();
             }
             SongsViewModel sv = new SongsViewModel();
-            sv.FromModel(song);
+            sv.ToModel(song);
             return View(sv);
         }
 
@@ -63,7 +63,7 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(SongsViewModel song)
         {
-            song s = song.ToModel();
+            song s = song.FromModel();
             if (ModelState.IsValid)
             {
                 db.songs.Add(s);
@@ -77,7 +77,7 @@ namespace MusicLibrary.Controllers
             return View(song);
         }
 
-        // GET: songs/Edit/5
+        // GET: songs/Edit/
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,21 +91,19 @@ namespace MusicLibrary.Controllers
                 return HttpNotFound();
             }
             SongsViewModel sv = new SongsViewModel();
-            sv.FromModel(ss);
+            sv.ToModel(ss);
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
             return View(sv);
         }
 
-        // POST: songs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: songs/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SongsViewModel song)
         {
-            song s = song.ToModel();
+            song s = song.FromModel();
             if (ModelState.IsValid)
             {
                 db.Entry(s).State = EntityState.Modified;
@@ -128,7 +126,7 @@ namespace MusicLibrary.Controllers
                 return HttpNotFound();
             }
             SongsViewModel sv = new SongsViewModel();
-            sv.FromModel(song);
+            sv.ToModel(song);
             return View(sv);
         }
 
@@ -169,7 +167,7 @@ namespace MusicLibrary.Controllers
                 return HttpNotFound();
             }
             SongsViewModel sv = new SongsViewModel();
-            sv.FromModel(ss);
+            sv.ToModel(ss);
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
@@ -181,7 +179,7 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ArtistEdit(SongsViewModel song)
         {
-            song s = song.ToModel();
+            song s = song.FromModel();
             
             if (ModelState.IsValid)
             {
@@ -219,7 +217,7 @@ namespace MusicLibrary.Controllers
                 return HttpNotFound();
             }
             SongsViewModel sv = new SongsViewModel();
-            sv.FromModel(ss);
+            sv.ToModel(ss);
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
@@ -232,7 +230,7 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AlbumEdit(SongsViewModel song)
         {
-            song s = song.ToModel();
+            song s = song.FromModel();
             if (ModelState.IsValid)
             {
                 db.Entry(s).State = EntityState.Modified;
@@ -251,7 +249,7 @@ namespace MusicLibrary.Controllers
             }
             song song = db.songs.Find(id);
             SongsViewModel ss = new SongsViewModel();
-            ss.FromModel(song);
+            ss.ToModel(song);
             if (song == null)
             {
                 return HttpNotFound();
@@ -271,7 +269,7 @@ namespace MusicLibrary.Controllers
                 return HttpNotFound();
             }
             SongsViewModel ss = new SongsViewModel();
-            ss.FromModel(song);
+            ss.ToModel(song);
             return View(ss);
         }
 
@@ -282,7 +280,7 @@ namespace MusicLibrary.Controllers
         {
             song song = db.songs.Find(id);
             SongsViewModel ss = new SongsViewModel();
-            ss.FromModel(song);
+            ss.ToModel(song);
             db.songs.Remove(song);
             db.SaveChanges();
             
@@ -332,7 +330,7 @@ namespace MusicLibrary.Controllers
         }
         
 
-
+        //Crystal report of song list.
         public ActionResult Report()
         {   ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports/SongReport.rpt")));

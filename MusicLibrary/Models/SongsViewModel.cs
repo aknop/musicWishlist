@@ -29,7 +29,7 @@ namespace MusicLibrary.Models
         public IEnumerable<SelectListItem> ArtistNames = new List<SelectListItem>();
         public IEnumerable<SelectListItem> AlbumNames = new List<SelectListItem>();
         public IEnumerable<SelectListItem> GenreNames = new List<SelectListItem>();
-        public song ToModel()
+        public song FromModel()
         {
             return new song
             {
@@ -41,7 +41,8 @@ namespace MusicLibrary.Models
                 id = SongID
             };
         }
-        public void FromModel (song s)
+        
+        public void ToModel (song s)
         {
 
             TrackNumber = s.track_number;

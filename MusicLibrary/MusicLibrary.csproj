@@ -234,6 +234,7 @@
     <Compile Include="hounddog.cs" />
     <Compile Include="Models\AlbumViewModel.cs" />
     <Compile Include="Models\ArtistViewModel.cs" />
+    <Compile Include="Models\GenreViewModel.cs" />
     <Compile Include="Models\SongsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\SongReport.cs">

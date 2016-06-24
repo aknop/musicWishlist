@@ -22,7 +22,7 @@ namespace MusicLibrary.Controllers
         // GET: Genre
         public ActionResult Index()
         {
-            var genreList = (from t in db.genres select new SongsViewModel { SongID = t.id, GenreName = t.genreName });
+            var genreList = (from t in db.genres select new GenreViewModel { GenreID = t.id, GenreName = t.genreName });
             return View(genreList.ToList());
         }
 
@@ -30,41 +30,21 @@ namespace MusicLibrary.Controllers
         // GET: songs/Create
         public ActionResult Create()
         {
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName");
             return View();
         }
 
         // POST: songs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,genreName")] genre genre)
+        public ActionResult Create(GenreViewModel genre)
         {
-            
+            genre g = genre.FromModel();
             if (ModelState.IsValid)
             {
-                db.genres.Add(genre);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException dbEx)
-                {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }
-                    }
-                }
+                db.genres.Add(g);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genreName", genre.genreName);
             return View(genre);
         }
 
@@ -80,7 +60,9 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            return View(genre);
+            GenreViewModel gm = new GenreViewModel();
+            gm.ToModel(genre);
+            return View(gm);
         }
 
         // POST: songs/Delete/5
@@ -95,7 +77,7 @@ namespace MusicLibrary.Controllers
         }
 
 
-        // GET: Artist/Edit/5
+        // GET: Genre/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -107,12 +89,12 @@ namespace MusicLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            return View(genre);
+            GenreViewModel gm = new GenreViewModel();
+            gm.ToModel(genre);
+            return View(gm);
         }
 
-        // POST: Artist/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Genre/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,genreName")] genre genre)

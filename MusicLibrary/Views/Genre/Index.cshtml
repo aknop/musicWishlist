@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MusicLibrary.Models.SongsViewModel>
+﻿@model IEnumerable<MusicLibrary.Models.GenreViewModel>
 
 @{
     ViewBag.Title = "Genres";
@@ -25,8 +25,8 @@
             </td>
             <td>
 
-                @Html.ActionLink("Edit","Edit",new { id = item.SongID }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.SongID }, new { @class = "btn btn-primary btn-danger" })
+                @Html.ActionLink("Edit","Edit",new { id = item.GenreID }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.GenreID }, new { @class = "btn btn-primary btn-danger" })
             </td>
         </tr>
     }

@@ -118,3 +118,4 @@ C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\bi
 C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\obj\Debug\MusicLibrary.dll
 C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\obj\Debug\MusicLibrary.pdb
+C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\obj\Debug\MusicLibrary.csprojResolveAssemblyReference.cache
