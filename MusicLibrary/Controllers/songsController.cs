@@ -51,9 +51,11 @@ namespace MusicLibrary.Controllers
         // GET: songs/Create
         public ActionResult Create()
         {
+            List<AlbumViewModel> AlbumsList = UpdatedAlbumsList(db.artists.First().id);
+
             SongsViewModel sv = new SongsViewModel();
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
-            sv.AlbumNames = new SelectList(db.albums, "id", "name");
+            sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName");
             sv.GenreNames = new SelectList(db.genres, "id", "genreName");
             return View(sv);
         }
@@ -343,7 +345,37 @@ namespace MusicLibrary.Controllers
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", "SongList.pdf");
         }
-    
+
+        public ActionResult UpdatedAlbums(int artistID)
+        {
+            List<AlbumViewModel> AlbumNames = new List<AlbumViewModel>();
+            foreach (var z in db.albums)
+            {
+                if(z.artist_id == artistID)
+                {
+                    AlbumViewModel av = new AlbumViewModel();
+                    av.AlbumName = z.name;
+                    av.AlbumID = z.id;
+                    AlbumNames.Add(av);
+                }
+            }
+            return Json(new { AlbumNames},JsonRequestBehavior.AllowGet);
+        }
+        private List<AlbumViewModel> UpdatedAlbumsList(int artistID)
+        {
+            List<AlbumViewModel> AlbumNames = new List<AlbumViewModel>();
+            foreach (var z in db.albums)
+            {
+                if (z.artist_id == artistID)
+                {
+                    AlbumViewModel av = new AlbumViewModel();
+                    av.AlbumName = z.name;
+                    av.AlbumID = z.id;
+                    AlbumNames.Add(av);
+                }
+            }
+            return AlbumNames;
+        }
 
         protected override void Dispose(bool disposing)
         {
