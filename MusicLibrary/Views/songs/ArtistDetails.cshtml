@@ -1,4 +1,4 @@
-﻿@model MusicLibrary.song
+﻿@model MusicLibrary.Models.SongsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -14,7 +14,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.name)
+            @Html.DisplayFor(model => model.TrackName)
         </dd>
 
         <dt>
@@ -22,7 +22,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.track_number)
+            @Html.DisplayFor(model => model.TrackNumber)
         </dd>
 
         <dt>
@@ -30,7 +30,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.album.name)
+            @Html.DisplayFor(model => model.AlbumName)
         </dd>
 
         <dt>
@@ -38,7 +38,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.artist.artistName)
+            @Html.DisplayFor(model => model.ArtistName)
         </dd>
 
         <dt>
@@ -46,12 +46,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.genre.genreName)
+            @Html.DisplayFor(model => model.GenreName)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "ArtistEdit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "ArtistIndex", new { ArtistName = Model.artist.artistName })
+    @Html.ActionLink("Edit", "ArtistEdit", new { id = Model.SongID }) |
+    @Html.ActionLink("Back to List", "ArtistIndex", new { ArtistName = Model.ArtistName })
 </p>

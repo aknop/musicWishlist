@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicLibrary.Models
 {
     public class ArtistViewModel
     {
+        [StringLength(25)]
+        [Required]
         public string ArtistName { get; set; }
         public int ArtistID { get; set; }
         public IEnumerable<SongsViewModel> SongList { get; set; }

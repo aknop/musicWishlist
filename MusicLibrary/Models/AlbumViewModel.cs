@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicLibrary.Models
 {
     public class AlbumViewModel
     {
+        [Required]
+        [StringLength(25)]
         public string AlbumName { get; set; }
+        [StringLength(25)]
         public string ArtistName { get; set; }
         public int AlbumID { get; set; }
         public int? ArtistID { get; set; }

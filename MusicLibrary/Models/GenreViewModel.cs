@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace MusicLibrary.Models
 {
     public class GenreViewModel
     {
+        [StringLength(20)]
+        [Required]
         public string GenreName { get; set; }
         public int GenreID { get; set; }
+
         public genre FromModel()
         {
             return new genre
