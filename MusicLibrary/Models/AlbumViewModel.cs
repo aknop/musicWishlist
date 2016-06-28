@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using MusicLibrary.Filter;
 
 namespace MusicLibrary.Models
 {
     public class AlbumViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="Album name is required!")]
         [StringLength(25)]
+        [DuplicateAlbum]
         public string AlbumName { get; set; }
         [StringLength(25)]
         public string ArtistName { get; set; }
         public int AlbumID { get; set; }
-        public int? ArtistID { get; set; }
+        [Required]
+        public int ArtistID { get; set; }
         public IEnumerable<SongsViewModel> SongList { get; set; }
         public IEnumerable<SelectListItem> ArtistNames = new List<SelectListItem>();
         

@@ -346,16 +346,19 @@ namespace MusicLibrary.Controllers
             return File(stream, "application/pdf", "SongList.pdf");
         }
 
-        public ActionResult UpdatedAlbums(int artistID)
+        public ActionResult UpdatedAlbums(int artistID=0)
         {
             List<AlbumViewModel> AlbumNames = new List<AlbumViewModel>();
             foreach (var z in db.albums)
             {
+                //For every album, if the album's artist ID matches the parameter, add it to the list
                 if(z.artist_id == artistID)
                 {
                     AlbumViewModel av = new AlbumViewModel();
                     av.AlbumName = z.name;
                     av.AlbumID = z.id;
+                    var ArtistNameList = db.artists.Where(a => a.id == artistID);
+                    av.ArtistName = ArtistNameList.First().artistName;
                     AlbumNames.Add(av);
                 }
             }

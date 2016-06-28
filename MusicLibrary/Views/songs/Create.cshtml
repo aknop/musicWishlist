@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Add Song</h2>
 
 
 @using (Html.BeginForm()) 
@@ -20,21 +20,27 @@
                 @Html.ValidationMessageFor(model => model.TrackName, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ArtistName, "Artist", htmlAttributes: new { @class = "control-label col-md-2" })
-            
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ArtistID, Model.ArtistNames, new { @class = "form-control" } )
-                @Html.ValidationMessageFor(model => model.ArtistName, "", new { @class = "text-danger" })
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ArtistName, "Artist", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.ArtistID, Model.ArtistNames, "---Select an Artist---", new { @class = "form-control" } )
+                    @Html.ValidationMessageFor(model => model.ArtistName, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.ActionLink("Add an Artist", "Create","artist")
+                </div>
             </div>
-        </div>
+        </form>
 
         <div class="form-group">
             @Html.LabelFor(model => model.AlbumName, "Album", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.AlbumID, Model.AlbumNames, new { @class = "form-control" } )
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.AlbumID, Model.AlbumNames, "---Select an Album---", new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.AlbumName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6" id="AlbumSuggestion">
+                @Html.ActionLink("Add new Album","Create","album")
             </div>
         </div>
 
@@ -48,9 +54,12 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.GenreName, "Genre", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.DropDownListFor(model => model.GenreID, Model.GenreNames, new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.GenreName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                @Html.ActionLink("Add a Genre", "Create", "genre")
             </div>
         </div>
 

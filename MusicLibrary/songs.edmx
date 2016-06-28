@@ -10,8 +10,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="artist_id" Type="int" />
-          <Property Name="name" Type="varchar" MaxLength="25" />
+          <Property Name="artist_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="artist">
           <Key>
@@ -38,7 +38,7 @@
           <Property Name="track_number" Type="int" Nullable="false" />
           <Property Name="genre_id" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__songs__album_id__753864A1">
+        <Association Name="FK__songs__album_id__7BE56230">
           <End Role="album" Type="Self.album" Multiplicity="1" />
           <End Role="songs" Type="Self.songs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -50,7 +50,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__songs__artist_id__74444068">
+        <Association Name="FK__songs__artist_id__7CD98669">
           <End Role="artist" Type="Self.artist" Multiplicity="1" />
           <End Role="songs" Type="Self.songs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -62,7 +62,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__songs__genre_id__762C88DA">
+        <Association Name="FK__songs__genre_id__7DCDAAA2">
           <End Role="genre" Type="Self.genre" Multiplicity="1" />
           <End Role="songs" Type="Self.songs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -79,15 +79,15 @@
           <EntitySet Name="artist" EntityType="Self.artist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="songs" EntityType="Self.songs" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__songs__album_id__753864A1" Association="Self.FK__songs__album_id__753864A1">
+          <AssociationSet Name="FK__songs__album_id__7BE56230" Association="Self.FK__songs__album_id__7BE56230">
             <End Role="album" EntitySet="album" />
             <End Role="songs" EntitySet="songs" />
           </AssociationSet>
-          <AssociationSet Name="FK__songs__artist_id__74444068" Association="Self.FK__songs__artist_id__74444068">
+          <AssociationSet Name="FK__songs__artist_id__7CD98669" Association="Self.FK__songs__artist_id__7CD98669">
             <End Role="artist" EntitySet="artist" />
             <End Role="songs" EntitySet="songs" />
           </AssociationSet>
-          <AssociationSet Name="FK__songs__genre_id__762C88DA" Association="Self.FK__songs__genre_id__762C88DA">
+          <AssociationSet Name="FK__songs__genre_id__7DCDAAA2" Association="Self.FK__songs__genre_id__7DCDAAA2">
             <End Role="genre" EntitySet="genre" />
             <End Role="songs" EntitySet="songs" />
           </AssociationSet>
@@ -153,8 +153,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="artist_id" Type="Int32" />
-          <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="artist_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="songs" Relationship="SampleDBModel.FK__songs__album_id__6D9742D9" FromRole="album" ToRole="song" />
         </EntityType>
         <Association Name="FK__songs__album_id__6D9742D9">

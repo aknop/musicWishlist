@@ -23,10 +23,10 @@ namespace MusicLibrary.Controllers
         }
 
         // GET: album/Create
-        public ActionResult Create()
+        public ActionResult Create(int defaultArtistID =0)
         {
             AlbumViewModel av = new AlbumViewModel();
-            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            av.ArtistNames = new SelectList(db.artists, "id", "artistName",defaultArtistID);
             return View(av);
         }
 
