@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MusicLibrary;
 using MusicLibrary.Models;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
-using System.ComponentModel.DataAnnotations;
+using MusicLibrary.Filter;
 
 namespace MusicLibrary.Controllers
 {
-    
     public class GenreController : Controller
     {
         
@@ -45,6 +39,9 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            
+            //var jsonData = _jsonResponseFactory.CreateSuccessResponse("Added!");
+            //return Json(jsonData, JsonRequestBehavior.AllowGet);
             return View(genre);
         }
 

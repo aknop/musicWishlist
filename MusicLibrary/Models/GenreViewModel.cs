@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using MusicLibrary.Filter;
 
 namespace MusicLibrary.Models
 {
+    
     public class GenreViewModel
     {
         [StringLength(20)]
-        [Required]
+        [Required(ErrorMessage ="Please enter a valid Genre")]
+        [DuplicateGenre]
         public string GenreName { get; set; }
         public int GenreID { get; set; }
 

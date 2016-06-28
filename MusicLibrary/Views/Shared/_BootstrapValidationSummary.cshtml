@@ -1,0 +1,20 @@
+﻿@model ModelStateDictionary
+<div id="bootstrapValSummary" class="@(Html.ViewData.ModelState.IsValid ? "validation-summary-valid" : "validation-summary-errors") alert alert-danger  fade in"
+     data-valmsg-summary="true">
+    <a id="closeBootValSummary" data-dismiss="alert" class='close'>×</a>
+    <div class="row">
+        <div class="col-md-1" style="width: 28px; padding: 5px;">
+            <i class="fa fa-warning"></i>
+        </div>
+        <div class="col-md-11">
+            <ul class="list-unstyled">
+                @foreach (var modelError in Model.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                {
+                    <li>@modelError.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+
