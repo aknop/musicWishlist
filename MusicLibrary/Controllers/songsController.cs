@@ -26,7 +26,7 @@ namespace MusicLibrary.Controllers
                             join art in db.artists on t.artist_id equals art.id
                             join al in db.albums on t.album_id equals al.id
                             join gen in db.genres on t.genre_id equals gen.id
-                            select new SongsViewModel{ SongID = t.id, TrackName=t.name, TrackNumber = t.track_number, ArtistName = art.artistName, AlbumName = al.name, GenreName= gen.genreName });
+                            select new SongsViewModel{ SongID = t.id, TrackName=t.name, TrackNumber = t.track_number, ArtistName = art.artistName, AlbumName = al.albumName, GenreName= gen.genreName });
             
             return View(songList.ToList());
         }
@@ -150,9 +150,9 @@ namespace MusicLibrary.Controllers
             var AlbumList = new AlbumViewModel();
             AlbumList.SongList = (from t in db.songs
                                    join art in db.artists on t.artist_id equals art.id where art.artistName == ArtistName
-                                   join al in db.albums on t.album_id equals al.id where al.name == AlbumName
+                                   join al in db.albums on t.album_id equals al.id where al.albumName == AlbumName
                                    join gen in db.genres on t.genre_id equals gen.id orderby t.track_number
-                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.name, GenreName = gen.genreName });
+                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName });
             AlbumList.AlbumName = AlbumName;
             AlbumList.ArtistName = ArtistName;
             return View("AlbumIndex", AlbumList);
@@ -188,7 +188,7 @@ namespace MusicLibrary.Controllers
             SongsViewModel sv = new SongsViewModel();
             sv.ToModel(ss);
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
-            sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
+            sv.AlbumNames = new SelectList(db.albums, "id", "albumName", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
 
             return View(sv);
@@ -249,7 +249,7 @@ namespace MusicLibrary.Controllers
                                    where art.artistName == ArtistName
                                    join al in db.albums on t.album_id equals al.id
                                    join gen in db.genres on t.genre_id equals gen.id
-                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.name, GenreName = gen.genreName });
+                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName });
             ArtistList.ArtistName = ArtistName;
             return View("ArtistIndex", ArtistList);
         }
@@ -284,7 +284,7 @@ namespace MusicLibrary.Controllers
             SongsViewModel sv = new SongsViewModel();
             sv.ToModel(ss);
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
-            sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
+            sv.AlbumNames = new SelectList(db.albums, "id", "albumName", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
             return View(sv);
         }
@@ -355,7 +355,7 @@ namespace MusicLibrary.Controllers
                 if(z.artist_id == artistID)
                 {
                     AlbumViewModel av = new AlbumViewModel();
-                    av.AlbumName = z.name;
+                    av.AlbumName = z.albumName;
                     av.AlbumID = z.id;
                     var ArtistNameList = db.artists.Where(a => a.id == artistID);
                     av.ArtistName = ArtistNameList.First().artistName;
@@ -372,7 +372,7 @@ namespace MusicLibrary.Controllers
                 if (z.artist_id == artistID)
                 {
                     AlbumViewModel av = new AlbumViewModel();
-                    av.AlbumName = z.name;
+                    av.AlbumName = z.albumName;
                     av.AlbumID = z.id;
                     AlbumNames.Add(av);
                 }

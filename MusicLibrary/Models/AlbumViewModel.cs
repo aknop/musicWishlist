@@ -5,11 +5,11 @@ using MusicLibrary.Filter;
 
 namespace MusicLibrary.Models
 {
+    [DuplicateAlbum]
     public class AlbumViewModel
     {
         [Required(ErrorMessage ="Album name is required!")]
         [StringLength(25)]
-        [DuplicateAlbum]
         public string AlbumName { get; set; }
         [StringLength(25)]
         public string ArtistName { get; set; }
@@ -23,7 +23,7 @@ namespace MusicLibrary.Models
         public void ToModel(album a)
         {
             ArtistID = a.artist_id;
-            AlbumName = a.name;
+            AlbumName = a.albumName;
             AlbumID = a.id;
         }
 
@@ -33,7 +33,7 @@ namespace MusicLibrary.Models
             {
                 artist_id = ArtistID,
                 id = AlbumID,
-                name = AlbumName
+                albumName = AlbumName
             };
         }
     }

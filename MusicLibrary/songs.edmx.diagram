@@ -8,10 +8,11 @@
         <EntityTypeShape EntityType="SampleDBModel.artist" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SampleDBModel.song" Width="1.5" PointX="3.375" PointY="1.25" />
         <AssociationConnector Association="SampleDBModel.FK__songs__artist_id__6CA31EA0" />
-        <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="5.25" PointY="1.5" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__6D9742D9" />
         <EntityTypeShape EntityType="SampleDBModel.genre" Width="1.5" PointX="3.375" PointY="4.75" />
         <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__762C88DA" />
+        <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="6.5" PointY="1.375" />
+        <AssociationConnector Association="SampleDBModel.FK__album__artist_id__0662F0A3" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__038683F8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

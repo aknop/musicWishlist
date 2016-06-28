@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MusicLibrary.Models;
 using System.Linq;
 
 namespace MusicLibrary.Filter

@@ -7,6 +7,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="artistName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="songs" Relationship="SampleDBModel.FK__songs__artist_id__6CA31EA0" FromRole="artist" ToRole="song" />
+    <NavigationProperty Name="albums" Relationship="SampleDBModel.FK__album__artist_id__0662F0A3" FromRole="artist" ToRole="album" />
   </EntityType>
   <EntityContainer Name="TrueEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="artists" EntityType="Self.artist" />
@@ -15,14 +16,18 @@
       <End Role="artist" EntitySet="artists" />
       <End Role="song" EntitySet="songs" />
     </AssociationSet>
-    <EntitySet Name="albums" EntityType="SampleDBModel.album" />
-    <AssociationSet Name="FK__songs__album_id__6D9742D9" Association="SampleDBModel.FK__songs__album_id__6D9742D9">
-      <End Role="album" EntitySet="albums" />
-      <End Role="song" EntitySet="songs" />
-    </AssociationSet>
     <EntitySet Name="genres" EntityType="SampleDBModel.genre" />
     <AssociationSet Name="FK__songs__genre_id__762C88DA" Association="SampleDBModel.FK__songs__genre_id__762C88DA">
       <End Role="genre" EntitySet="genres" />
+      <End Role="song" EntitySet="songs" />
+    </AssociationSet>
+    <EntitySet Name="albums" EntityType="SampleDBModel.album" />
+    <AssociationSet Name="FK__album__artist_id__0662F0A3" Association="SampleDBModel.FK__album__artist_id__0662F0A3">
+      <End Role="artist" EntitySet="artists" />
+      <End Role="album" EntitySet="albums" />
+    </AssociationSet>
+    <AssociationSet Name="FK__songs__album_id__038683F8" Association="SampleDBModel.FK__songs__album_id__038683F8">
+      <End Role="album" EntitySet="albums" />
       <End Role="song" EntitySet="songs" />
     </AssociationSet>
   </EntityContainer>
@@ -37,8 +42,8 @@
     <Property Name="track_number" Type="Int32" Nullable="false" />
     <Property Name="genre_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="artist" Relationship="SampleDBModel.FK__songs__artist_id__6CA31EA0" FromRole="song" ToRole="artist" />
-    <NavigationProperty Name="album" Relationship="SampleDBModel.FK__songs__album_id__6D9742D9" FromRole="song" ToRole="album" />
     <NavigationProperty Name="genre" Relationship="SampleDBModel.FK__songs__genre_id__762C88DA" FromRole="song" ToRole="genre" />
+    <NavigationProperty Name="album" Relationship="SampleDBModel.FK__songs__album_id__038683F8" FromRole="song" ToRole="album" />
   </EntityType>
   <Association Name="FK__songs__artist_id__6CA31EA0">
     <End Type="SampleDBModel.artist" Role="artist" Multiplicity="1" />
@@ -49,27 +54,6 @@
       </Principal>
       <Dependent Role="song">
         <PropertyRef Name="artist_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="album">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="artist_id" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="songs" Relationship="SampleDBModel.FK__songs__album_id__6D9742D9" FromRole="album" ToRole="song" />
-  </EntityType>
-  <Association Name="FK__songs__album_id__6D9742D9">
-    <End Type="SampleDBModel.album" Role="album" Multiplicity="1" />
-    <End Type="SampleDBModel.song" Role="song" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="album">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="song">
-        <PropertyRef Name="album_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -90,6 +74,40 @@
       </Principal>
       <Dependent Role="song">
         <PropertyRef Name="genre_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="album">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="artist_id" Type="Int32" Nullable="false" />
+    <Property Name="albumName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="artist" Relationship="SampleDBModel.FK__album__artist_id__0662F0A3" FromRole="album" ToRole="artist" />
+    <NavigationProperty Name="songs" Relationship="SampleDBModel.FK__songs__album_id__038683F8" FromRole="album" ToRole="song" />
+  </EntityType>
+  <Association Name="FK__album__artist_id__0662F0A3">
+    <End Type="SampleDBModel.artist" Role="artist" Multiplicity="1" />
+    <End Type="SampleDBModel.album" Role="album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="artist">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="album">
+        <PropertyRef Name="artist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__songs__album_id__038683F8">
+    <End Type="SampleDBModel.album" Role="album" Multiplicity="1" />
+    <End Type="SampleDBModel.song" Role="song" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="album">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="song">
+        <PropertyRef Name="album_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

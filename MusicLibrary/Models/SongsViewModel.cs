@@ -48,7 +48,7 @@ namespace MusicLibrary.Models
             GenreID = s.genre_id;
             TrackName = s.name;
             SongID = s.id;
-            AlbumName = s.album.name;
+            AlbumName = s.album.albumName;
             ArtistName = s.artist.artistName;
             GenreName = s.genre.genreName;
         }

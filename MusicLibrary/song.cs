@@ -22,7 +22,7 @@ namespace MusicLibrary
         public int genre_id { get; set; }
     
         public virtual artist artist { get; set; }
-        public virtual album album { get; set; }
         public virtual genre genre { get; set; }
+        public virtual album album { get; set; }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using MusicLibrary.Models;
 
 namespace MusicLibrary.Filter
 {
@@ -11,15 +9,14 @@ namespace MusicLibrary.Filter
         private TrueEntities db = new TrueEntities();
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var albumName = value as string;
+            var album = value as AlbumViewModel;
             ValidationResult result = null;
 
-            var genreNameList = db.genres.Where(g => g.genreName == albumName);
-            bool duplicateGenre = genreNameList.Any();
-
+            var albumNameList = db.albums.Where(a => (a.albumName == album.AlbumName) && (a.artist_id == album.ArtistID));
+            bool duplicateGenre = albumNameList.Any();
             if (duplicateGenre)
             {
-                result = new ValidationResult("This Genre already exists!");
+                result = new ValidationResult("This Album already exists!");
             }
 
             return result;

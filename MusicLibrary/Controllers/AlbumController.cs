@@ -18,7 +18,7 @@ namespace MusicLibrary.Controllers
         {
             var albumList = (from t in db.albums
                              join art in db.artists on t.artist_id equals art.id
-                             select new AlbumViewModel { AlbumID = t.id, AlbumName = t.name, ArtistName = art.artistName });
+                             select new AlbumViewModel { AlbumID = t.id, AlbumName = t.albumName, ArtistName = art.artistName });
             return View(albumList.ToList());
         }
 
@@ -26,7 +26,8 @@ namespace MusicLibrary.Controllers
         public ActionResult Create(int defaultArtistID =0)
         {
             AlbumViewModel av = new AlbumViewModel();
-            av.ArtistNames = new SelectList(db.artists, "id", "artistName",defaultArtistID);
+            av.ArtistNames = new SelectList(db.artists, "id", "artistName", defaultArtistID);
+            av.ArtistID = defaultArtistID;
             return View(av);
         }
 

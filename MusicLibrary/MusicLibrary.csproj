@@ -230,6 +230,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\songsController.cs" />
     <Compile Include="Filter\DuplicateAlbumAttribute.cs" />
+    <Compile Include="Filter\DuplicateArtistAttribute.cs" />
     <Compile Include="Filter\DuplicateGenreAttribute.cs" />
     <Compile Include="genre.cs">
       <DependentUpon>songs.tt</DependentUpon>
