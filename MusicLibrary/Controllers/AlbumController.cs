@@ -105,8 +105,6 @@ namespace MusicLibrary.Controllers
         }
 
         // POST: album/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AlbumViewModel album)
@@ -119,6 +117,34 @@ namespace MusicLibrary.Controllers
                 return RedirectToAction("Index");
             }
             return View(al);
+        }
+
+        // GET: newsong/Create
+        public ActionResult NewSongCreate(int defaultArtistID = 0)
+        {
+            AlbumViewModel av = new AlbumViewModel();
+            av.ArtistNames = new SelectList(db.artists, "id", "artistName", defaultArtistID);
+            av.ArtistID = defaultArtistID;
+            return View(av);
+        }
+
+        // POST: newsong/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewSongCreate(AlbumViewModel album)
+        {
+            album al = album.FromModel();
+            if (ModelState.IsValid)
+            {
+                db.albums.Add(al);
+                db.SaveChanges();
+                return RedirectToAction("Create", "songs", new { ArtistID = album.ArtistID,AlbumID = al.id, });
+
+            }
+            AlbumViewModel av = new AlbumViewModel();
+            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            return View(av);
+            
         }
     }
 }

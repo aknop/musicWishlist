@@ -27,6 +27,9 @@ namespace MusicLibrary
 
             bundles.Add(new ScriptBundle("~/bundles/PathFinder").Include(
                         "~/JavaScript/UpdateAlbums.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/NewSong").Include(
+                "~/JavaScript/RedirectToNewSong.js"));
         }
     }
 }

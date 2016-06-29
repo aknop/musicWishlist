@@ -49,14 +49,17 @@ namespace MusicLibrary.Controllers
         }
 
         // GET: songs/Create
-        public ActionResult Create()
+        public ActionResult Create(int AlbumID = 0, int ArtistID = 0)
         {
             List<AlbumViewModel> AlbumsList = UpdatedAlbumsList(db.artists.First().id);
 
+            //Apply attributes to our Song model.
             SongsViewModel sv = new SongsViewModel();
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
             sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName");
             sv.GenreNames = new SelectList(db.genres, "id", "genreName");
+            sv.AlbumID = AlbumID;
+            sv.ArtistID = ArtistID;
             return View(sv);
         }
 

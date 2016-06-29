@@ -1,7 +1,8 @@
 ﻿window.onload = function () {
     var artistID = $("#ArtistID").val();
+    var alID = $("#AlbumID").val();
     if (artistID != "") {
-        $.get("/songs/UpdatedAlbums", { artistID: artistID }, function (albums) {
+        $.get("/songs/UpdatedAlbums", { artistID: artistID}, function (albums) {
             var options = "";
             for (var z = 0; z < albums.AlbumNames.length; z++) {
                 var albumID = albums.AlbumNames[z].AlbumID;
@@ -10,10 +11,11 @@
             }
 
             $("#AlbumID").html(options);
+            $("#AlbumID").val(alID);
 
             //grab artist name from the dropdown
             var artistName = $("#ArtistID :selected").text();
-            var albumSuggest = "<a href = '/album/create?defaultArtistID=" + artistID + "'>" + "Add new " + artistName + " Album</a>";
+            var albumSuggest = "<a href = '/album/newsongcreate?defaultArtistID=" + artistID + "'>" + "Add new " + artistName + " Album</a>";
             $("#AlbumSuggestion").html(albumSuggest);
         }
     );
@@ -41,7 +43,7 @@ $("#ArtistID").change(function () {
 
             //grab artist name from the dropdown
             var artistName = $("#ArtistID :selected").text();
-            var albumSuggest = "<a href = '/album/create?defaultArtistID=" + artistID + "'>" + "Add new " + artistName + " Album</a>";
+            var albumSuggest = "<a href = '/album/newsongcreate?defaultArtistID=" + artistID + "'>" + "Add new " + artistName + " Album</a>";
             $("#AlbumSuggestion").html(albumSuggest);
         }
     );

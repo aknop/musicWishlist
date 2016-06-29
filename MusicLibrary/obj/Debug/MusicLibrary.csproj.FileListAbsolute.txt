@@ -121,3 +121,4 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\MusicLibrary\MusicLibrary\ob
 C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\bin\Microsoft.Practices.ServiceLocation.dll
 C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\bin\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Users\user\documents\visual studio 2015\Projects\MusicLibrary\MusicLibrary\obj\Debug\MusicLibrary.csprojResolveAssemblyReference.cache

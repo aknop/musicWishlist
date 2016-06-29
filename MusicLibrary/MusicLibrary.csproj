@@ -281,6 +281,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JavaScript\RedirectToNewSong.js" />
     <Content Include="JavaScript\UpdateAlbums.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -367,6 +368,7 @@
     <Content Include="Views\songs\ArtistDetails.cshtml" />
     <Content Include="Views\songs\ArtistDelete.cshtml" />
     <Content Include="Views\Shared\_BootstrapValidationSummary.cshtml" />
+    <Content Include="Views\Album\NewSongCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
