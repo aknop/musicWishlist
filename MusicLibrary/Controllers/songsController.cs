@@ -51,6 +51,7 @@ namespace MusicLibrary.Controllers
         // GET: songs/Create
         public ActionResult Create(int AlbumID = 0, int ArtistID = 0)
         {
+            //get initial list of albums populated
             List<AlbumViewModel> AlbumsList = UpdatedAlbumsList(db.artists.First().id);
 
             //Apply attributes to our Song model.
@@ -160,22 +161,6 @@ namespace MusicLibrary.Controllers
             AlbumList.ArtistName = ArtistName;
             return View("AlbumIndex", AlbumList);
         }
-        // AlbumIndex details
-        public ActionResult AlbumDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            song song = db.songs.Find(id);
-            SongsViewModel ss = new SongsViewModel();
-            ss.ToModel(song);
-            if (song == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ss);
-        }
         //AlbumIndex edit 
         public ActionResult AlbumEdit(int? id)
         {
@@ -255,22 +240,6 @@ namespace MusicLibrary.Controllers
                                    select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName });
             ArtistList.ArtistName = ArtistName;
             return View("ArtistIndex", ArtistList);
-        }
-        // ArtistIndex details
-        public ActionResult ArtistDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            song song = db.songs.Find(id);
-            if (song == null)
-            {
-                return HttpNotFound();
-            }
-            SongsViewModel ss = new SongsViewModel();
-            ss.ToModel(song);
-            return View(ss);
         }
         // ArtistIndex edit
         public ActionResult ArtistEdit(int? id)
@@ -367,6 +336,7 @@ namespace MusicLibrary.Controllers
             }
             return Json(new { AlbumNames},JsonRequestBehavior.AllowGet);
         }
+        //returns list of albumnames by the artist
         private List<AlbumViewModel> UpdatedAlbumsList(int artistID)
         {
             List<AlbumViewModel> AlbumNames = new List<AlbumViewModel>();
