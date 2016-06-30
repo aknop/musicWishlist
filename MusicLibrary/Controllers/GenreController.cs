@@ -94,11 +94,12 @@ namespace MusicLibrary.Controllers
         // POST: Genre/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,genreName")] genre genre)
+        public ActionResult Edit(GenreViewModel genre)
         {
+            genre g = genre.FromModel();
             if (ModelState.IsValid)
             {
-                db.Entry(genre).State = EntityState.Modified;
+                db.Entry(g).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -111,7 +111,8 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(al);
+            album.ArtistNames = new SelectList(db.artists, "id", "artistName", al.id);
+            return View(album);
         }
 
         // GET: newsong/Create
