@@ -20,7 +20,7 @@ namespace MusicLibrary.Models
         public IEnumerable<SongsViewModel> SongList { get; set; }
         //drop down of artists used when adding an album
         public IEnumerable<SelectListItem> ArtistNames = new List<SelectListItem>();
-        
+        public bool importedArtist { get; set; }
 
         public void ToModel(album a)
         {

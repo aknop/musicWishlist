@@ -9,7 +9,8 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.AlbumID)
+            @Html.HiddenFor(model => model.AlbumID)
+            @Html.HiddenFor(model =>model.importedArtist)
             <div class="form-horizontal">
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -37,5 +38,5 @@
     }
 
     <div>
-        @Html.ActionLink("Previous Page", "Create","song")
+        @Html.ActionLink("Previous Page", "Create","songs")
     </div>

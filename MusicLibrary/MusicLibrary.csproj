@@ -363,7 +363,6 @@
       <DependentUpon>songs.edmx</DependentUpon>
     </Content>
     <Content Include="Views\songs\AlbumEdit.cshtml" />
-    <Content Include="Views\songs\AlbumDetails.cshtml" />
     <Content Include="Views\songs\AlbumDelete.cshtml" />
     <Content Include="Views\songs\ArtistDelete.cshtml" />
     <Content Include="Views\Shared\_BootstrapValidationSummary.cshtml" />

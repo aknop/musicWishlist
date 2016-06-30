@@ -8,7 +8,6 @@ namespace MusicLibrary.Controllers
 {
     public class AlbumController : Controller
     {
-        bool importedArtist = false;
         private TrueEntities db = new TrueEntities();
         // GET: Album
         public ActionResult Index()
@@ -124,7 +123,7 @@ namespace MusicLibrary.Controllers
             if (defaultArtistID != null)
             {
                 av.ArtistID = defaultArtistID ?? 0;
-                importedArtist = true;
+                av.importedArtist = true;
             }
             return View(av);
         }
@@ -140,10 +139,10 @@ namespace MusicLibrary.Controllers
                 db.albums.Add(al);
                 db.SaveChanges();
                 //If an artist isn't passed in from the new song page, then redirect to the new album in the song Index.
-                if (importedArtist)
+                if (album.importedArtist == true)
                     return RedirectToAction("Create", "songs", new { ArtistID = album.ArtistID, AlbumID = al.id, });
                 else
-                    return RedirectToAction("AlbumIndex", "songs", new { AlbumName = al.albumName, ArtistID = album.ArtistID });
+                    return RedirectToAction("AlbumIndex", "songs", new { AlbumID = al.id, ArtistID = album.ArtistID });
             }
             
             AlbumViewModel av = new AlbumViewModel();

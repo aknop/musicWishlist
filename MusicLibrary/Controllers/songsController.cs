@@ -26,7 +26,7 @@ namespace MusicLibrary.Controllers
                             join art in db.artists on t.artist_id equals art.id
                             join al in db.albums on t.album_id equals al.id
                             join gen in db.genres on t.genre_id equals gen.id
-                            select new SongsViewModel{ SongID = t.id, TrackName=t.name, TrackNumber = t.track_number, ArtistName = art.artistName, AlbumName = al.albumName, GenreName= gen.genreName });
+                            select new SongsViewModel{ SongID = t.id, TrackName=t.name, TrackNumber = t.track_number, ArtistName = art.artistName, AlbumName = al.albumName, GenreName= gen.genreName, AlbumID = al.id, ArtistID = art.id });
             
             return View(songList.ToList());
         }
@@ -152,15 +152,15 @@ namespace MusicLibrary.Controllers
 
        
         //View a sorted list of albums
-        public ActionResult AlbumIndex(string AlbumName, int ArtistID)
+        public ActionResult AlbumIndex(int AlbumID, int ArtistID)
         {
             var AlbumList = new AlbumViewModel();
             AlbumList.SongList = (from t in db.songs
                                    join art in db.artists on t.artist_id equals art.id where art.id == ArtistID
-                                   join al in db.albums on t.album_id equals al.id where al.albumName == AlbumName
+                                   join al in db.albums on t.album_id equals al.id where al.id == AlbumID
                                    join gen in db.genres on t.genre_id equals gen.id orderby t.track_number
-                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName });
-            AlbumList.AlbumName = AlbumName;
+                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName, ArtistID = art.id, AlbumID = al.id });
+            AlbumList.AlbumName = db.albums.Where(a => a.id == AlbumID).ToList()[0].albumName;
             AlbumList.ArtistName = db.artists.Where(a => a.id == ArtistID).ToList()[0].artistName;
             return View("AlbumIndex", AlbumList);
         }
@@ -195,7 +195,7 @@ namespace MusicLibrary.Controllers
             {
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("AlbumIndex",new { AlbumName = song.AlbumName, ArtistName = song.ArtistName });
+                return RedirectToAction("AlbumIndex",new { AlbumID = song.AlbumID, ArtistID = song.ArtistID });
             }
 
             return View(s);
@@ -224,25 +224,23 @@ namespace MusicLibrary.Controllers
         public ActionResult AlbumDeleteConfirmed(int id)
         {
             song song = db.songs.Find(id);
-            SongsViewModel ss = new SongsViewModel();
-            ss.ToModel(song);
             db.songs.Remove(song);
             db.SaveChanges();
             
-            return RedirectToAction("AlbumIndex", new { AlbumName = ss.AlbumName });
+            return RedirectToAction("AlbumIndex", new { AlbumID = song.album_id, ArtistID = song.artist_id });
         }
         // sort songs by artist
-        public ActionResult ArtistIndex(string ArtistName)
+        public ActionResult ArtistIndex(int ArtistID)
         {
             var ArtistList = new ArtistViewModel();
             ArtistList.SongList = (from t in db.songs
                                    join art in db.artists on t.artist_id equals art.id
-                                   where art.artistName == ArtistName
+                                   where art.id == ArtistID
                                    join gen in db.genres on t.genre_id equals gen.id
                                    join al in db.albums on t.album_id equals al.id
                                    orderby al.albumName, t.track_number
                                    select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName });
-            ArtistList.ArtistName = ArtistName;
+            ArtistList.ArtistName = db.artists.Where(a=> a.id == ArtistID).ToList()[0].artistName;
             return View("ArtistIndex", ArtistList);
         }
         // ArtistIndex edit
@@ -276,7 +274,7 @@ namespace MusicLibrary.Controllers
             {
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ArtistIndex", new { ArtistName = song.ArtistName });
+                return RedirectToAction("ArtistIndex", new { ArtistID = song.ArtistID });
             }
             return View(s);
         }
@@ -303,11 +301,10 @@ namespace MusicLibrary.Controllers
         public ActionResult ArtistDeleteConfirmed(int id)
         {
             song song = db.songs.Find(id);
-            var ArtistNameID = db.artists.Find(song.album_id).artistName ;
             db.songs.Remove(song);
             db.SaveChanges();
 
-            return RedirectToAction("ArtistIndex", new { ArtistName = ArtistNameID });
+            return RedirectToAction("ArtistIndex", new { ArtistID = song.artist_id });
         }
         
 

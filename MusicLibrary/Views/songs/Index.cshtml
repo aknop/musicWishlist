@@ -7,7 +7,7 @@
 <h2>Songs</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add Music", "Create")
 </p>
 <p>
     @Html.ActionLink("Download Report(pdf)", "Report")
@@ -41,10 +41,10 @@
             @Html.DisplayFor(modelItem => item.TrackNumber)
         </td>
         <td>
-            @Html.ActionLink(item.AlbumName, "AlbumIndex", new { AlbumName = item.AlbumName, ArtistName = item.ArtistName })
+            @Html.ActionLink(item.AlbumName, "AlbumIndex", new { AlbumID = item.AlbumID, ArtistID = item.ArtistID })
         </td>
         <td>
-            @Html.ActionLink(item.ArtistName, "ArtistIndex", new { ArtistName = item.ArtistName })
+            @Html.ActionLink(item.ArtistName, "ArtistIndex", new { ArtistID = item.ArtistID })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GenreName)

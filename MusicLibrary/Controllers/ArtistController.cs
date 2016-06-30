@@ -39,6 +39,7 @@ namespace MusicLibrary.Controllers
             {
                 db.artists.Add(ar);
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             
@@ -116,7 +117,7 @@ namespace MusicLibrary.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        // GET: Artist/Create
+        // GET: Artist/NewSongCreate
         public ActionResult NewSongCreate()
         {
             ArtistViewModel av = new ArtistViewModel();
@@ -133,7 +134,7 @@ namespace MusicLibrary.Controllers
             {
                 db.artists.Add(ar);
                 db.SaveChanges();
-                return RedirectToAction("Create", "songs", new { ArtistID = ar.id });
+                return RedirectToAction("ArtistIndex", "songs", new { ArtistID = ar.id });
             }
 
             return View(artist);

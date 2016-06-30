@@ -13,7 +13,6 @@ namespace MusicLibrary.Models
         //used for ArtistIndex
         public IEnumerable<SongsViewModel> SongList { get; set; }
 
-
         public void ToModel(artist a)
         {
             ArtistName = a.artistName;
