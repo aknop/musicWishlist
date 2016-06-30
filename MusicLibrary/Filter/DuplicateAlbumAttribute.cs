@@ -14,6 +14,7 @@ namespace MusicLibrary.Filter
 
             var albumNameList = db.albums.Where(a => (a.albumName == album.AlbumName) && (a.artist_id == album.ArtistID));
             bool duplicateGenre = albumNameList.Any();
+
             if (duplicateGenre)
             {
                 result = new ValidationResult("This Album already exists!");

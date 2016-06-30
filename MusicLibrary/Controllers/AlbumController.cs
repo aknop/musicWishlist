@@ -22,7 +22,7 @@ namespace MusicLibrary.Controllers
         public ActionResult Create()
         {
             AlbumViewModel av = new AlbumViewModel();
-            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            av.ArtistNames = new SelectList(db.artists.OrderBy(x=>x.artistName), "id", "artistName");
             return View(av);
         }
 
@@ -94,7 +94,7 @@ namespace MusicLibrary.Controllers
 
             AlbumViewModel al = new AlbumViewModel();
             al.ToModel(album);
-            al.ArtistNames = new SelectList(db.artists, "id", "artistName", al.ArtistID);
+            al.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", al.ArtistID);
 
             return View(al);
         }
@@ -111,7 +111,7 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            album.ArtistNames = new SelectList(db.artists, "id", "artistName", al.id);
+            album.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", al.id);
             return View(album);
         }
 
@@ -120,7 +120,7 @@ namespace MusicLibrary.Controllers
         {
             
             AlbumViewModel av = new AlbumViewModel();
-            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            av.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
             if (defaultArtistID != null)
             {
                 av.ArtistID = defaultArtistID ?? 0;
@@ -147,7 +147,7 @@ namespace MusicLibrary.Controllers
             }
             
             AlbumViewModel av = new AlbumViewModel();
-            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            av.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
             return View(av);
             
         }

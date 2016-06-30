@@ -56,7 +56,7 @@ namespace MusicLibrary.Controllers
 
             //Apply attributes to our Song model.
             SongsViewModel sv = new SongsViewModel();
-            sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
             //selects album to be the one user just created
             sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName", AlbumID);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", GenreID);
@@ -78,7 +78,7 @@ namespace MusicLibrary.Controllers
                 return RedirectToAction("Index");
             }
 
-            song.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            song.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
             song.AlbumNames = new SelectList(db.albums, "id", "name");
             song.GenreNames = new SelectList(db.genres, "id", "genreName");
             return View(song);
@@ -101,7 +101,7 @@ namespace MusicLibrary.Controllers
 
             SongsViewModel sv = new SongsViewModel();
             sv.ToModel(ss);
-            sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
+            sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
             return View(sv);
@@ -119,7 +119,7 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(s);
+            return View(song);
         }
 
         // GET: delete song
@@ -178,7 +178,7 @@ namespace MusicLibrary.Controllers
             }
             SongsViewModel sv = new SongsViewModel();
             sv.ToModel(ss);
-            sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
+            sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(db.albums, "id", "albumName", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
 
@@ -257,7 +257,7 @@ namespace MusicLibrary.Controllers
             }
             SongsViewModel sv = new SongsViewModel();
             sv.ToModel(ss);
-            sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
+            sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(db.albums, "id", "albumName", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
             return View(sv);

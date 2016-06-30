@@ -3,12 +3,11 @@ using MusicLibrary.Filter;
 
 namespace MusicLibrary.Models
 {
-    
+    [DuplicateGenre]
     public class GenreViewModel
     {
         [StringLength(20)]
         [Required(ErrorMessage ="Please enter a valid Genre")]
-        [DuplicateGenre]
         public string GenreName { get; set; }
         public int GenreID { get; set; }
 
