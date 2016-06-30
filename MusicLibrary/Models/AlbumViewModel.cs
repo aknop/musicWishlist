@@ -11,11 +11,12 @@ namespace MusicLibrary.Models
         [Required(ErrorMessage ="Album name is required!")]
         [StringLength(25)]
         public string AlbumName { get; set; }
+        public int AlbumID { get; set; }
         [StringLength(25)]
         public string ArtistName { get; set; }
-        public int AlbumID { get; set; }
-        [Required]
         public int ArtistID { get; set; }
+        public string GenreName { get; set; }
+        public int GenreID { get; set; }
         //Album Index songs
         public IEnumerable<SongsViewModel> SongList { get; set; }
         //drop down of artists used when adding an album
