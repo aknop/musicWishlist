@@ -7,10 +7,10 @@
 
 <h2>Add Artist</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(model => model.ArtistID)
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -31,5 +31,5 @@
 }
 
 <div>
-    @Html.ActionLink("Artist List", "Index")
+    @Html.ActionLink("Previous Page", "Create", "songs")
 </div>

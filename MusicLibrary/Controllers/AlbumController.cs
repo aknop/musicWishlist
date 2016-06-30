@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MusicLibrary;
 using MusicLibrary.Models;
 namespace MusicLibrary.Controllers
 {
     public class AlbumController : Controller
     {
+        bool importedArtist = false;
         private TrueEntities db = new TrueEntities();
         // GET: Album
         public ActionResult Index()
         {
             var albumList = (from t in db.albums
-                             join art in db.artists on t.artist_id equals art.id
+                             join art in db.artists on t.artist_id equals art.id orderby t.artist.artistName, t.albumName
                              select new AlbumViewModel { AlbumID = t.id, AlbumName = t.albumName, ArtistName = art.artistName });
             return View(albumList.ToList());
         }
 
         // GET: album/Create
-        public ActionResult Create(int defaultArtistID =0)
+        public ActionResult Create()
         {
             AlbumViewModel av = new AlbumViewModel();
-            av.ArtistNames = new SelectList(db.artists, "id", "artistName", defaultArtistID);
-            av.ArtistID = defaultArtistID;
+            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
             return View(av);
         }
 
@@ -120,11 +116,16 @@ namespace MusicLibrary.Controllers
         }
 
         // GET: newsong/Create
-        public ActionResult NewSongCreate(int defaultArtistID = 0)
+        public ActionResult NewSongCreate(int? defaultArtistID)
         {
+            
             AlbumViewModel av = new AlbumViewModel();
-            av.ArtistNames = new SelectList(db.artists, "id", "artistName", defaultArtistID);
-            av.ArtistID = defaultArtistID;
+            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            if (defaultArtistID != null)
+            {
+                av.ArtistID = defaultArtistID ?? 0;
+                importedArtist = true;
+            }
             return View(av);
         }
 
@@ -138,9 +139,13 @@ namespace MusicLibrary.Controllers
             {
                 db.albums.Add(al);
                 db.SaveChanges();
-                return RedirectToAction("Create", "songs", new { ArtistID = album.ArtistID,AlbumID = al.id, });
-
+                //If an artist isn't passed in from the new song page, then redirect to the new album in the song Index.
+                if (importedArtist)
+                    return RedirectToAction("Create", "songs", new { ArtistID = album.ArtistID, AlbumID = al.id, });
+                else
+                    return RedirectToAction("AlbumIndex", "songs", new { AlbumName = al.albumName, ArtistID = album.ArtistID });
             }
+            
             AlbumViewModel av = new AlbumViewModel();
             av.ArtistNames = new SelectList(db.artists, "id", "artistName");
             return View(av);

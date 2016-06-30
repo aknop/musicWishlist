@@ -10,6 +10,7 @@ namespace MusicLibrary.Models
         [DuplicateArtist]
         public string ArtistName { get; set; }
         public int ArtistID { get; set; }
+        //used for ArtistIndex
         public IEnumerable<SongsViewModel> SongList { get; set; }
 
 

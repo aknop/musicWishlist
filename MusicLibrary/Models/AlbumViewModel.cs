@@ -16,7 +16,9 @@ namespace MusicLibrary.Models
         public int AlbumID { get; set; }
         [Required]
         public int ArtistID { get; set; }
+        //Album Index songs
         public IEnumerable<SongsViewModel> SongList { get; set; }
+        //drop down of artists used when adding an album
         public IEnumerable<SelectListItem> ArtistNames = new List<SelectListItem>();
         
 

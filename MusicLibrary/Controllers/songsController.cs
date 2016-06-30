@@ -49,16 +49,17 @@ namespace MusicLibrary.Controllers
         }
 
         // GET: songs/Create
-        public ActionResult Create(int AlbumID = 0, int ArtistID = 0)
+        public ActionResult Create(int AlbumID = 0, int ArtistID = 0, int GenreID = 0)
         {
             //get initial list of albums populated
-            List<AlbumViewModel> AlbumsList = UpdatedAlbumsList(db.artists.First().id);
+            List<AlbumViewModel> AlbumsList = UpdatedAlbumsList(ArtistID);
 
             //Apply attributes to our Song model.
             SongsViewModel sv = new SongsViewModel();
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName");
-            sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName");
-            sv.GenreNames = new SelectList(db.genres, "id", "genreName");
+            //selects album to be the one user just created
+            sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName", AlbumID);
+            sv.GenreNames = new SelectList(db.genres, "id", "genreName", GenreID);
             sv.AlbumID = AlbumID;
             sv.ArtistID = ArtistID;
             return View(sv);
@@ -91,15 +92,17 @@ namespace MusicLibrary.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             song ss = db.songs.Find(id);
-            
             if (ss == null)
             {
                 return HttpNotFound();
             }
+            //get initial list of albums populated
+            List<AlbumViewModel> AlbumsList = UpdatedAlbumsList(ss.artist_id);
+
             SongsViewModel sv = new SongsViewModel();
             sv.ToModel(ss);
             sv.ArtistNames = new SelectList(db.artists, "id", "artistName", ss.artist_id);
-            sv.AlbumNames = new SelectList(db.albums, "id", "name", ss.album_id);
+            sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName", ss.album_id);
             sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
             return View(sv);
         }
@@ -149,16 +152,16 @@ namespace MusicLibrary.Controllers
 
        
         //View a sorted list of albums
-        public ActionResult AlbumIndex(string AlbumName, string ArtistName)
+        public ActionResult AlbumIndex(string AlbumName, int ArtistID)
         {
             var AlbumList = new AlbumViewModel();
             AlbumList.SongList = (from t in db.songs
-                                   join art in db.artists on t.artist_id equals art.id where art.artistName == ArtistName
+                                   join art in db.artists on t.artist_id equals art.id where art.id == ArtistID
                                    join al in db.albums on t.album_id equals al.id where al.albumName == AlbumName
                                    join gen in db.genres on t.genre_id equals gen.id orderby t.track_number
                                    select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName });
             AlbumList.AlbumName = AlbumName;
-            AlbumList.ArtistName = ArtistName;
+            AlbumList.ArtistName = db.artists.Where(a => a.id == ArtistID).ToList()[0].artistName;
             return View("AlbumIndex", AlbumList);
         }
         //AlbumIndex edit 
@@ -235,8 +238,9 @@ namespace MusicLibrary.Controllers
             ArtistList.SongList = (from t in db.songs
                                    join art in db.artists on t.artist_id equals art.id
                                    where art.artistName == ArtistName
-                                   join al in db.albums on t.album_id equals al.id
                                    join gen in db.genres on t.genre_id equals gen.id
+                                   join al in db.albums on t.album_id equals al.id
+                                   orderby al.albumName, t.track_number
                                    select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName });
             ArtistList.ArtistName = ArtistName;
             return View("ArtistIndex", ArtistList);
@@ -317,7 +321,7 @@ namespace MusicLibrary.Controllers
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", "SongList.pdf");
         }
-
+        //returns a list of albumnames to the JavaScript so it can be updated
         public ActionResult UpdatedAlbums(int artistID=0)
         {
             List<AlbumViewModel> AlbumNames = new List<AlbumViewModel>();

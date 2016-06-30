@@ -23,6 +23,7 @@ namespace MusicLibrary.Models
         public int GenreID { get; set; }
         public int SongID { get; set; }
 
+        //Drop downs when you create a song
         public IEnumerable<SelectListItem> ArtistNames = new List<SelectListItem>();
         public IEnumerable<SelectListItem> AlbumNames = new List<SelectListItem>();
         public IEnumerable<SelectListItem> GenreNames = new List<SelectListItem>();

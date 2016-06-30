@@ -18,7 +18,8 @@ namespace MusicLibrary.Controllers
         // GET: Artist
         public ActionResult Index()
         {
-            var artistList = (from t in db.artists select new ArtistViewModel { ArtistID = t.id, ArtistName = t.artistName });
+            var artistList = (from t in db.artists orderby t.artistName
+                              select new ArtistViewModel { ArtistID = t.id, ArtistName = t.artistName });
             return View(artistList.ToList());
         }
         
@@ -114,6 +115,28 @@ namespace MusicLibrary.Controllers
             db.artists.Remove(artist);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        // GET: Artist/Create
+        public ActionResult NewSongCreate()
+        {
+            ArtistViewModel av = new ArtistViewModel();
+            return View(av);
+        }
+
+        // POST: Artist/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewSongCreate(ArtistViewModel artist)
+        {
+            artist ar = artist.FromModel();
+            if (ModelState.IsValid)
+            {
+                db.artists.Add(ar);
+                db.SaveChanges();
+                return RedirectToAction("Create", "songs", new { ArtistID = ar.id });
+            }
+
+            return View(artist);
         }
 
         protected override void Dispose(bool disposing)

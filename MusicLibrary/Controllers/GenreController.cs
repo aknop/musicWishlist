@@ -104,5 +104,28 @@ namespace MusicLibrary.Controllers
             }
             return View(genre);
         }
+        // GET: songs/Create
+        public ActionResult NewSongCreate()
+        {
+            return View();
+        }
+
+        // POST: songs/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewSongCreate(GenreViewModel genre)
+        {
+            genre g = genre.FromModel();
+            if (ModelState.IsValid)
+            {
+                db.genres.Add(g);
+                db.SaveChanges();
+                return RedirectToAction("Create","songs", new { GenreID = g.id });
+            }
+
+            //var jsonData = _jsonResponseFactory.CreateSuccessResponse("Added!");
+            //return Json(jsonData, JsonRequestBehavior.AllowGet);
+            return View(genre);
+        }
     }
 }
