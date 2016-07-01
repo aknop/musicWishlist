@@ -10,10 +10,11 @@
         <AssociationConnector Association="SampleDBModel.FK__songs__artist_id__6CA31EA0" />
         <EntityTypeShape EntityType="SampleDBModel.genre" Width="1.5" PointX="3.375" PointY="4.75" />
         <AssociationConnector Association="SampleDBModel.FK__songs__genre_id__762C88DA" />
-        <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="6.5" PointY="1.375" />
-        <AssociationConnector Association="SampleDBModel.FK__album__artist_id__0662F0A3" />
-        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__038683F8" />
-      </Diagram>
+        <EntityTypeShape EntityType="SampleDBModel.album" Width="1.5" PointX="6.25" PointY="1" />
+        <AssociationConnector Association="SampleDBModel.FK__album__artist_id__3CBF0154" />
+        <AssociationConnector Association="SampleDBModel.FK__album__genre_id__3DB3258D" />
+        <AssociationConnector Association="SampleDBModel.FK__songs__album_id__3EA749C6" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -32,6 +32,7 @@
     <EntitySetMapping Name="albums">
       <EntityTypeMapping TypeName="SampleDBModel.album">
         <MappingFragment StoreEntitySet="album">
+          <ScalarProperty Name="genre_id" ColumnName="genre_id" />
           <ScalarProperty Name="albumName" ColumnName="albumName" />
           <ScalarProperty Name="artist_id" ColumnName="artist_id" />
           <ScalarProperty Name="id" ColumnName="id" />

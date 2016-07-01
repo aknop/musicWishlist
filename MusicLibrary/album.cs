@@ -23,8 +23,10 @@ namespace MusicLibrary
         public int id { get; set; }
         public int artist_id { get; set; }
         public string albumName { get; set; }
+        public int genre_id { get; set; }
     
         public virtual artist artist { get; set; }
+        public virtual genre genre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<song> songs { get; set; }
     }

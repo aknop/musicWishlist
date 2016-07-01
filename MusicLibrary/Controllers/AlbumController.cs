@@ -14,7 +14,8 @@ namespace MusicLibrary.Controllers
         {
             var albumList = (from t in db.albums
                              join art in db.artists on t.artist_id equals art.id orderby t.artist.artistName, t.albumName
-                             select new AlbumViewModel { AlbumID = t.id, AlbumName = t.albumName, ArtistName = art.artistName });
+                             join gen in db.genres on t.genre_id equals gen.id
+                             select new AlbumViewModel { AlbumID = t.id, AlbumName = t.albumName, ArtistName = art.artistName, GenreID = gen.id });
             return View(albumList.ToList());
         }
 
@@ -23,6 +24,7 @@ namespace MusicLibrary.Controllers
         {
             AlbumViewModel av = new AlbumViewModel();
             av.ArtistNames = new SelectList(db.artists.OrderBy(x=>x.artistName), "id", "artistName");
+            av.GenreNames = new SelectList(db.genres.OrderBy(x => x.genreName), "id", "genreName");
             return View(av);
         }
 
@@ -40,6 +42,7 @@ namespace MusicLibrary.Controllers
             }
             AlbumViewModel av = new AlbumViewModel();
             av.ArtistNames = new SelectList(db.artists, "id", "artistName");
+            av.GenreNames = new SelectList(db.genres, "id", "genreName");
             return View(av);
         }
 
@@ -95,6 +98,7 @@ namespace MusicLibrary.Controllers
             AlbumViewModel al = new AlbumViewModel();
             al.ToModel(album);
             al.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", al.ArtistID);
+            al.GenreNames = new SelectList(db.genres.OrderBy(x => x.genreName), "id", "genreName", al.GenreID);
 
             return View(al);
         }
@@ -112,6 +116,7 @@ namespace MusicLibrary.Controllers
                 return RedirectToAction("Index");
             }
             album.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", al.id);
+            album.GenreNames = new SelectList(db.genres.OrderBy(x => x.genreName), "id", "genreName", al.genre_id);
             return View(album);
         }
 
@@ -121,6 +126,7 @@ namespace MusicLibrary.Controllers
             
             AlbumViewModel av = new AlbumViewModel();
             av.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
+            av.GenreNames = new SelectList(db.genres.OrderBy(x => x.genreName), "id", "genreName");
             if (defaultArtistID != null)
             {
                 av.ArtistID = defaultArtistID ?? 0;
@@ -141,7 +147,7 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 //If an artist isn't passed in from the new song page, then redirect to the new album in the song Index.
                 if (album.importedArtist == true)
-                    return RedirectToAction("Create", "songs", new { ArtistID = album.ArtistID, AlbumID = al.id, });
+                    return RedirectToAction("Create", "songs", new { ArtistID = album.ArtistID, AlbumID = al.id, GenreID = album.GenreID});
                 else
                     return RedirectToAction("AlbumIndex", "songs", new { AlbumID = al.id, ArtistID = album.ArtistID });
             }

@@ -19,8 +19,9 @@ namespace MusicLibrary.Models
         public int GenreID { get; set; }
         //Album Index songs
         public IEnumerable<SongsViewModel> SongList { get; set; }
-        //drop down of artists used when adding an album
+        //drop downs used when adding an album
         public IEnumerable<SelectListItem> ArtistNames = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> GenreNames = new List<SelectListItem>();
         public bool importedArtist { get; set; }
 
         public void ToModel(album a)
@@ -28,6 +29,7 @@ namespace MusicLibrary.Models
             ArtistID = a.artist_id;
             AlbumName = a.albumName;
             AlbumID = a.id;
+            GenreID = a.genre_id;
         }
 
         public album FromModel()
@@ -36,7 +38,8 @@ namespace MusicLibrary.Models
             {
                 artist_id = ArtistID,
                 id = AlbumID,
-                albumName = AlbumName
+                albumName = AlbumName,
+                genre_id = GenreID,
             };
         }
     }

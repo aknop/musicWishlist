@@ -7,6 +7,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="artist_id" Type="int" Nullable="false" />
     <Property Name="albumName" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="genre_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="artist">
     <Key>
@@ -33,7 +34,7 @@
     <Property Name="track_number" Type="int" Nullable="false" />
     <Property Name="genre_id" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK__album__artist_id__0662F0A3">
+  <Association Name="FK__album__artist_id__3CBF0154">
     <End Role="artist" Type="Self.artist" Multiplicity="1" />
     <End Role="album" Type="Self.album" Multiplicity="*" />
     <ReferentialConstraint>
@@ -45,7 +46,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__album_id__038683F8">
+  <Association Name="FK__album__genre_id__3DB3258D">
+    <End Role="genre" Type="Self.genre" Multiplicity="1" />
+    <End Role="album" Type="Self.album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="genre">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="album">
+        <PropertyRef Name="genre_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__songs__album_id__3EA749C6">
     <End Role="album" Type="Self.album" Multiplicity="1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -57,7 +70,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__artist_id__047AA831">
+  <Association Name="FK__songs__artist_id__23F3538A">
     <End Role="artist" Type="Self.artist" Multiplicity="1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -69,7 +82,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__genre_id__056ECC6A">
+  <Association Name="FK__songs__genre_id__24E777C3">
     <End Role="genre" Type="Self.genre" Multiplicity="1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -86,19 +99,23 @@
     <EntitySet Name="artist" EntityType="Self.artist" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="songs" EntityType="Self.songs" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__album__artist_id__0662F0A3" Association="Self.FK__album__artist_id__0662F0A3">
+    <AssociationSet Name="FK__album__artist_id__3CBF0154" Association="Self.FK__album__artist_id__3CBF0154">
       <End Role="artist" EntitySet="artist" />
       <End Role="album" EntitySet="album" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__album_id__038683F8" Association="Self.FK__songs__album_id__038683F8">
+    <AssociationSet Name="FK__album__genre_id__3DB3258D" Association="Self.FK__album__genre_id__3DB3258D">
+      <End Role="genre" EntitySet="genre" />
+      <End Role="album" EntitySet="album" />
+    </AssociationSet>
+    <AssociationSet Name="FK__songs__album_id__3EA749C6" Association="Self.FK__songs__album_id__3EA749C6">
       <End Role="album" EntitySet="album" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__artist_id__047AA831" Association="Self.FK__songs__artist_id__047AA831">
+    <AssociationSet Name="FK__songs__artist_id__23F3538A" Association="Self.FK__songs__artist_id__23F3538A">
       <End Role="artist" EntitySet="artist" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__genre_id__056ECC6A" Association="Self.FK__songs__genre_id__056ECC6A">
+    <AssociationSet Name="FK__songs__genre_id__24E777C3" Association="Self.FK__songs__genre_id__24E777C3">
       <End Role="genre" EntitySet="genre" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>

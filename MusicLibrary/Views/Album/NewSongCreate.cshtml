@@ -10,7 +10,8 @@
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.AlbumID)
-            @Html.HiddenFor(model =>model.importedArtist)
+            @Html.HiddenFor(model => model.importedArtist)
+            @Html.HiddenFor(model => model.ArtistID)
             <div class="form-horizontal">
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -28,6 +29,13 @@
                         @Html.ValidationMessageFor(model => model.ArtistName, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GenreName, "Genre", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.GenreID, Model.GenreNames, "---Select a Genre---", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GenreName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -35,8 +43,8 @@
                     </div>
                 </div>
             </div>
-    }
+        }
 
     <div>
-        @Html.ActionLink("Previous Page", "Create","songs")
+        @Html.ActionLink("Previous Page", "Create", "songs", new { ArtistID = Model.ArtistID }, null )
     </div>
