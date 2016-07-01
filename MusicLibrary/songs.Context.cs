@@ -26,8 +26,8 @@ namespace MusicLibrary
         }
     
         public virtual DbSet<artist> artists { get; set; }
-        public virtual DbSet<song> songs { get; set; }
         public virtual DbSet<genre> genres { get; set; }
         public virtual DbSet<album> albums { get; set; }
+        public virtual DbSet<song> songs { get; set; }
     }
 }

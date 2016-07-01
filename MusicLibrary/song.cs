@@ -19,10 +19,8 @@ namespace MusicLibrary
         public int artist_id { get; set; }
         public int album_id { get; set; }
         public int track_number { get; set; }
-        public int genre_id { get; set; }
     
-        public virtual artist artist { get; set; }
-        public virtual genre genre { get; set; }
         public virtual album album { get; set; }
+        public virtual artist artist { get; set; }
     }
 }

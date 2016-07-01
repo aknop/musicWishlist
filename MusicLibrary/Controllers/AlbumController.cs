@@ -33,6 +33,7 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AlbumViewModel album)
         {
+            album.GenreName = db.genres.Where(x => x.id == album.GenreID).First().genreName;
             album al = album.FromModel();
             if (ModelState.IsValid)
             {
@@ -41,8 +42,8 @@ namespace MusicLibrary.Controllers
                 return RedirectToAction("Index");
             }
             AlbumViewModel av = new AlbumViewModel();
-            av.ArtistNames = new SelectList(db.artists, "id", "artistName");
-            av.GenreNames = new SelectList(db.genres, "id", "genreName");
+            av.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
+            av.GenreNames = new SelectList(db.genres.OrderBy(x => x.genreName), "id", "genreName");
             return View(av);
         }
 
@@ -108,6 +109,7 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AlbumViewModel album)
         {
+            album.GenreName = db.genres.Where(x => x.id == album.GenreID).First().genreName;
             album al = album.FromModel();
             if (ModelState.IsValid)
             {
@@ -140,6 +142,7 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult NewSongCreate(AlbumViewModel album)
         {
+            album.GenreName = db.genres.Where(x => x.id == album.GenreID).First().genreName;
             album al = album.FromModel();
             if (ModelState.IsValid)
             {
@@ -147,7 +150,7 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 //If an artist isn't passed in from the new song page, then redirect to the new album in the song Index.
                 if (album.importedArtist == true)
-                    return RedirectToAction("Create", "songs", new { ArtistID = album.ArtistID, AlbumID = al.id, GenreID = album.GenreID});
+                    return RedirectToAction("Create", "songs", new { ArtistID = album.ArtistID, AlbumID = al.id });
                 else
                     return RedirectToAction("AlbumIndex", "songs", new { AlbumID = al.id, ArtistID = album.ArtistID });
             }

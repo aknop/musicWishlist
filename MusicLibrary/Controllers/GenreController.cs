@@ -67,10 +67,10 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var songs = db.songs.Where(s => s.genre_id == id).ToList();
-            foreach (var s in songs)
+            var albums = db.albums.Where(s => s.genre_id == id).ToList();
+            foreach (var s in albums)
             {
-                db.songs.Remove(s);
+                db.albums.Remove(s);
             }
             genre genre = db.genres.Find(id);
             db.genres.Remove(genre);

@@ -12,7 +12,7 @@ namespace MusicLibrary.Filter
             var album = value as AlbumViewModel;
             ValidationResult result = null;
 
-            var albumNameList = db.albums.Where(a => (a.albumName == album.AlbumName) && (a.artist_id == album.ArtistID));
+            var albumNameList = db.albums.Where(a => (a.albumName == album.AlbumName) && (a.artist_id == album.ArtistID) && (a.genre_id == album.GenreID));
             bool duplicateGenre = albumNameList.Any();
 
             if (duplicateGenre)

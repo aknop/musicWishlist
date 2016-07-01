@@ -25,8 +25,7 @@ namespace MusicLibrary.Controllers
             var songList = (from t in db.songs
                             join art in db.artists on t.artist_id equals art.id
                             join al in db.albums on t.album_id equals al.id
-                            join gen in db.genres on t.genre_id equals gen.id
-                            select new SongsViewModel{ SongID = t.id, TrackName=t.name, TrackNumber = t.track_number, ArtistName = art.artistName, AlbumName = al.albumName, GenreName= gen.genreName, AlbumID = al.id, ArtistID = art.id });
+                            select new SongsViewModel{ SongID = t.id, TrackName=t.name, TrackNumber = t.track_number, ArtistName = art.artistName, AlbumName = al.albumName, AlbumID = al.id, ArtistID = art.id });
             
             return View(songList.ToList());
         }
@@ -48,24 +47,23 @@ namespace MusicLibrary.Controllers
             return View(sv);
         }
 
-        // GET: songs/Create
-        public ActionResult Create(int AlbumID = 0, int ArtistID = 0, int GenreID = 0)
+        // Create a new song
+        public ActionResult Create(int AlbumID = 0, int ArtistID = 0)
         {
             //get initial list of albums populated
             List<AlbumViewModel> AlbumsList = UpdatedAlbumsList(ArtistID);
-
             //Apply attributes to our Song model.
             SongsViewModel sv = new SongsViewModel();
             sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
-            //selects album to be the one user just created
+            //selects album to be the one that is imported.
             sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName", AlbumID);
-            sv.GenreNames = new SelectList(db.genres, "id", "genreName", GenreID);
-            sv.AlbumID = AlbumID;
-            sv.ArtistID = ArtistID;
+            //if the artist and album were preselected, set importedArtist to true.
+            if (AlbumID != 0 && ArtistID != 0)
+                sv.importedArtist = true;
             return View(sv);
         }
 
-        // POST: songs/Create
+        // Save your created song
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(SongsViewModel song)
@@ -75,12 +73,14 @@ namespace MusicLibrary.Controllers
             {
                 db.songs.Add(s);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //if the song was preselected to belong in an album, redirect to that album.
+                if (song.importedArtist == true)
+                    return RedirectToAction("AlbumIndex", new { AlbumID = song.AlbumID, ArtistID = song.ArtistID });
+                else
+                    return RedirectToAction("Index");
             }
-
             song.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
             song.AlbumNames = new SelectList(db.albums, "id", "name");
-            song.GenreNames = new SelectList(db.genres, "id", "genreName");
             return View(song);
         }
 
@@ -103,7 +103,6 @@ namespace MusicLibrary.Controllers
             sv.ToModel(ss);
             sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName", ss.album_id);
-            sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
             return View(sv);
         }
 
@@ -151,37 +150,40 @@ namespace MusicLibrary.Controllers
         }
 
        
-        //View a sorted list of albums
+        //View the songs for a specific album
         public ActionResult AlbumIndex(int AlbumID, int ArtistID)
         {
             var AlbumList = new AlbumViewModel();
+            //populate the album model's songlist with songs that match the same album. Sort the tracks by track number.
             AlbumList.SongList = (from t in db.songs
                                    join art in db.artists on t.artist_id equals art.id where art.id == ArtistID
-                                   join al in db.albums on t.album_id equals al.id where al.id == AlbumID
-                                   join gen in db.genres on t.genre_id equals gen.id orderby t.track_number
-                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName, ArtistID = art.id, AlbumID = al.id });
+                                   join al in db.albums on t.album_id equals al.id where al.id == AlbumID orderby t.track_number
+                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, ArtistID = art.id, AlbumID = al.id });
+            //used in the title of the album index page.
             AlbumList.AlbumName = db.albums.Where(a => a.id == AlbumID).ToList()[0].albumName;
             AlbumList.ArtistName = db.artists.Where(a => a.id == ArtistID).ToList()[0].artistName;
+
+            //assigns a genre to the album
+            AlbumList.GenreID = db.albums.Where(a => a.id == AlbumID).ToList()[0].genre_id;
+            AlbumList.GenreName = db.genres.Where(g => g.id == AlbumList.GenreID).ToList().First().genreName;
+
+            //used to add songs to the album from the albumindex page
+            AlbumList.AlbumID = AlbumID;
+            AlbumList.ArtistID = ArtistID;
+
             return View("AlbumIndex", AlbumList);
         }
-        //AlbumIndex edit 
+
+        //Edit a song from the albumindex page
         public ActionResult AlbumEdit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             song ss = db.songs.Find(id);
-            if (ss == null)
-            {
-                return HttpNotFound();
-            }
             SongsViewModel sv = new SongsViewModel();
             sv.ToModel(ss);
+
+            //populate the dropdowns for artist and album
             sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(db.albums, "id", "albumName", ss.album_id);
-            sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
-
             return View(sv);
         }
 
@@ -190,6 +192,7 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AlbumEdit(SongsViewModel song)
         {
+            //Save the edit to the song and redirect to the album index
             song s = song.FromModel();
             if (ModelState.IsValid)
             {
@@ -197,22 +200,13 @@ namespace MusicLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("AlbumIndex",new { AlbumID = song.AlbumID, ArtistID = song.ArtistID });
             }
-
             return View(s);
         }
         
-        // AlbumIndex delete
+        // delete a song from the albumindex
         public ActionResult AlbumDelete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             song song = db.songs.Find(id);
-            if (song == null)
-            {
-                return HttpNotFound();
-            }
             SongsViewModel ss = new SongsViewModel();
             ss.ToModel(song);
             return View(ss);
@@ -226,40 +220,33 @@ namespace MusicLibrary.Controllers
             song song = db.songs.Find(id);
             db.songs.Remove(song);
             db.SaveChanges();
-            
+            //delete song and redirect to the album index.
             return RedirectToAction("AlbumIndex", new { AlbumID = song.album_id, ArtistID = song.artist_id });
         }
-        // sort songs by artist
+
+        // show songs by artist
         public ActionResult ArtistIndex(int ArtistID)
         {
             var ArtistList = new ArtistViewModel();
             ArtistList.SongList = (from t in db.songs
                                    join art in db.artists on t.artist_id equals art.id
                                    where art.id == ArtistID
-                                   join gen in db.genres on t.genre_id equals gen.id
                                    join al in db.albums on t.album_id equals al.id
                                    orderby al.albumName, t.track_number
-                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName, GenreName = gen.genreName });
+                                   select new SongsViewModel { SongID = t.id, TrackName = t.name, TrackNumber = t.track_number, AlbumName = al.albumName});
             ArtistList.ArtistName = db.artists.Where(a=> a.id == ArtistID).ToList()[0].artistName;
             return View("ArtistIndex", ArtistList);
         }
-        // ArtistIndex edit
+
+        // edit song from artist index
         public ActionResult ArtistEdit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             song ss = db.songs.Find(id);
-            if (ss == null)
-            {
-                return HttpNotFound();
-            }
             SongsViewModel sv = new SongsViewModel();
             sv.ToModel(ss);
+            //populate artist and album drop downs for the song
             sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName", ss.artist_id);
             sv.AlbumNames = new SelectList(db.albums, "id", "albumName", ss.album_id);
-            sv.GenreNames = new SelectList(db.genres, "id", "genreName", ss.genre_id);
             return View(sv);
         }
 
@@ -269,27 +256,20 @@ namespace MusicLibrary.Controllers
         public ActionResult ArtistEdit(SongsViewModel song)
         {
             song s = song.FromModel();
-
             if (ModelState.IsValid)
             {
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
+                //save edit to song and redirect to artist index
                 return RedirectToAction("ArtistIndex", new { ArtistID = song.ArtistID });
             }
             return View(s);
         }
-        // ArtistIndex delete
+
+        // delete song from artist index page.
         public ActionResult ArtistDelete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             song song = db.songs.Find(id);
-            if (song == null)
-            {
-                return HttpNotFound();
-            }
             SongsViewModel ss = new SongsViewModel();
             ss.ToModel(song);
             return View(ss);
@@ -303,10 +283,9 @@ namespace MusicLibrary.Controllers
             song song = db.songs.Find(id);
             db.songs.Remove(song);
             db.SaveChanges();
-
+            //redirect to artist index.
             return RedirectToAction("ArtistIndex", new { ArtistID = song.artist_id });
         }
-        
 
         //Crystal report of song list.
         public ActionResult Report()
@@ -318,6 +297,7 @@ namespace MusicLibrary.Controllers
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", "SongList.pdf");
         }
+
         //returns a list of albumnames to the JavaScript so it can be updated
         public ActionResult UpdatedAlbums(int artistID=0)
         {
@@ -330,13 +310,14 @@ namespace MusicLibrary.Controllers
                     AlbumViewModel av = new AlbumViewModel();
                     av.AlbumName = z.albumName;
                     av.AlbumID = z.id;
-                    var ArtistNameList = db.artists.Where(a => a.id == artistID);
-                    av.ArtistName = ArtistNameList.First().artistName;
+                    av.GenreName = db.genres.Where(g => g.id == z.genre_id).First().genreName;
+                    av.ArtistName = db.artists.Where(a => a.id == artistID).First().artistName;
                     AlbumNames.Add(av);
                 }
             }
             return Json(new { AlbumNames},JsonRequestBehavior.AllowGet);
         }
+
         //returns list of albumnames by the artist
         private List<AlbumViewModel> UpdatedAlbumsList(int artistID)
         {

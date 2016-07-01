@@ -6,6 +6,9 @@
 
 <h2>@Html.DisplayFor(modelItem=> Model.AlbumName) by @Html.DisplayFor(modelItem => Model.ArtistName)</h2>
 
+<p>
+    @Html.ActionLink("Add Songs to " + Model.AlbumName, "Create",new { ArtistID = Model.ArtistID, AlbumID = Model.AlbumID})
+</p>
 <table class="table">
     <tr>
         <th>
@@ -36,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.AlbumName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GenreName)
+                @Html.DisplayFor(modelItem => Model.GenreName)
             </td>
             <td>
                @Html.ActionLink("Edit", "AlbumEdit", new { id = item.SongID }, new { @class = "btn btn-primary" })

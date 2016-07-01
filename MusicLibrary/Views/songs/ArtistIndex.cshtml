@@ -17,9 +17,6 @@
         <th>
             Album Name
         </th>
-        <th>
-            Genre
-        </th>
         <th></th>
     </tr>
 
@@ -34,9 +31,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AlbumName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GenreName)
             </td>
             <td>
                 @Html.ActionLink("Edit", "ArtistEdit", new { id = item.SongID }, new { @class = "btn btn-primary" })

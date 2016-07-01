@@ -32,7 +32,6 @@
     <Property Name="artist_id" Type="int" Nullable="false" />
     <Property Name="album_id" Type="int" Nullable="false" />
     <Property Name="track_number" Type="int" Nullable="false" />
-    <Property Name="genre_id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK__album__artist_id__3CBF0154">
     <End Role="artist" Type="Self.artist" Multiplicity="1" />
@@ -58,7 +57,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__album_id__3EA749C6">
+  <Association Name="FK__songs__album_id__4183B671">
     <End Role="album" Type="Self.album" Multiplicity="1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -70,7 +69,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__songs__artist_id__23F3538A">
+  <Association Name="FK__songs__artist_id__4277DAAA">
     <End Role="artist" Type="Self.artist" Multiplicity="1" />
     <End Role="songs" Type="Self.songs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -79,18 +78,6 @@
       </Principal>
       <Dependent Role="songs">
         <PropertyRef Name="artist_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__songs__genre_id__24E777C3">
-    <End Role="genre" Type="Self.genre" Multiplicity="1" />
-    <End Role="songs" Type="Self.songs" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="genre">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="songs">
-        <PropertyRef Name="genre_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -107,16 +94,12 @@
       <End Role="genre" EntitySet="genre" />
       <End Role="album" EntitySet="album" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__album_id__3EA749C6" Association="Self.FK__songs__album_id__3EA749C6">
+    <AssociationSet Name="FK__songs__album_id__4183B671" Association="Self.FK__songs__album_id__4183B671">
       <End Role="album" EntitySet="album" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>
-    <AssociationSet Name="FK__songs__artist_id__23F3538A" Association="Self.FK__songs__artist_id__23F3538A">
+    <AssociationSet Name="FK__songs__artist_id__4277DAAA" Association="Self.FK__songs__artist_id__4277DAAA">
       <End Role="artist" EntitySet="artist" />
-      <End Role="songs" EntitySet="songs" />
-    </AssociationSet>
-    <AssociationSet Name="FK__songs__genre_id__24E777C3" Association="Self.FK__songs__genre_id__24E777C3">
-      <End Role="genre" EntitySet="genre" />
       <End Role="songs" EntitySet="songs" />
     </AssociationSet>
   </EntityContainer>
