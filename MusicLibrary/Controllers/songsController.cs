@@ -56,7 +56,7 @@ namespace MusicLibrary.Controllers
             SongsViewModel sv = new SongsViewModel();
             sv.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
             //selects album to be the one that is imported.
-            sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName", AlbumID);
+            sv.AlbumNames = new SelectList(AlbumsList, "AlbumID", "AlbumName");
             //if the artist and album were preselected, set importedArtist to true.
             if (AlbumID != 0 && ArtistID != 0)
                 sv.importedArtist = true;

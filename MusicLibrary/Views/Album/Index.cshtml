@@ -12,6 +12,7 @@
 
 <table class="table">
     <tr>
+        <th></th>
         <th>
             Album
         </th>
@@ -24,6 +25,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                <div id="albumCover"></div>
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AlbumName)
             </td>

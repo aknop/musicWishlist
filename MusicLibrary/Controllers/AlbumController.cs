@@ -13,8 +13,9 @@ namespace MusicLibrary.Controllers
         public ActionResult Index()
         {
             var albumList = (from t in db.albums
-                             join art in db.artists on t.artist_id equals art.id orderby t.artist.artistName, t.albumName
+                             join art in db.artists on t.artist_id equals art.id 
                              join gen in db.genres on t.genre_id equals gen.id
+                             orderby t.artist.artistName, t.albumName
                              select new AlbumViewModel { AlbumID = t.id, AlbumName = t.albumName, ArtistName = art.artistName, GenreID = gen.id });
             return View(albumList.ToList());
         }
@@ -142,7 +143,9 @@ namespace MusicLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult NewSongCreate(AlbumViewModel album)
         {
-            album.GenreName = db.genres.Where(x => x.id == album.GenreID).First().genreName;
+            //In case the user submits the album without adding a genre, don't assing a genrename.
+            if (album.GenreID != 0)
+                album.GenreName = db.genres.Where(x => x.id == album.GenreID).First().genreName;
             album al = album.FromModel();
             if (ModelState.IsValid)
             {
@@ -157,6 +160,7 @@ namespace MusicLibrary.Controllers
             
             AlbumViewModel av = new AlbumViewModel();
             av.ArtistNames = new SelectList(db.artists.OrderBy(x => x.artistName), "id", "artistName");
+            av.GenreNames = new SelectList(db.genres.OrderBy(x => x.genreName), "id", "genreName");
             return View(av);
             
         }
