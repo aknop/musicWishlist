@@ -30,6 +30,9 @@ namespace MusicLibrary
 
             bundles.Add(new ScriptBundle("~/bundles/EditSong").Include(
                 "~/JavaScript/UpdateAlbumEdit.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/AlbumCover").Include(
+                "~/JavaScript/AlbumCover.js"));
         }
     }
 }

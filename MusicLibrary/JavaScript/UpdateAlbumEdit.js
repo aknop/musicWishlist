@@ -1,4 +1,4 @@
-﻿//In the song edit screen, this populates the dropdown for the song's artist.
+﻿//In the Edit Song screen, this populates the dropdown for the song's artist.
 
     $("#ArtistID").change(function () {
         var artistID = $("#ArtistID").val();

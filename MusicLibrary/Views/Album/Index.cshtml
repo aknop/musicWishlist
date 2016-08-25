@@ -26,7 +26,9 @@
     {
         <tr>
             <td>
-                <div id="albumCover"></div>
+                <div style="height: 100px; width: 100px;">
+                    <a id="albumCover" href=""></a>
+                </div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AlbumName)
@@ -44,3 +46,6 @@
 </table>
 
 <h3>Done adding albums? Add some <a href="~/Genre/Create" class="btn btn-primary btn-lg">Genres &raquo;</a></h3>
+@section Scripts {
+    @Scripts.Render("~/bundles/AlbumCover") 
+    }

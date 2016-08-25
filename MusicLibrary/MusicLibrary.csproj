@@ -281,6 +281,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JavaScript\AlbumCover.js" />
     <Content Include="JavaScript\UpdateAlbumEdit.js" />
     <Content Include="JavaScript\UpdateAlbums.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -380,6 +381,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
